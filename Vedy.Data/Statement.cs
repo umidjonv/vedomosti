@@ -8,9 +8,6 @@
         public long CustomerId { get; set; } 
         public Customer Customer { get; set; }
 
-        public long CompanyId { get; set; }
-        public Company Company { get; set; }
-
         public decimal Amount { get; set; }
 
         public DateTime CreatedDate { get; set; }

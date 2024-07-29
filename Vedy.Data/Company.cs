@@ -5,6 +5,7 @@
         public long CustomerId { get; set; } 
         public Customer Customer { get; set; }
         
-        public virtual List<Statement> Statement { get; set; }
+        public string CompanyName { get; set; }
+
     }
 }

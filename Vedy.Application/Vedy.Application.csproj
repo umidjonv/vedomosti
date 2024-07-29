@@ -10,4 +10,8 @@
     <Folder Include="UseCases\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Vedy.Data\Vedy.Data.csproj" />
+  </ItemGroup>
+
 </Project>
