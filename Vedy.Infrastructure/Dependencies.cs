@@ -11,7 +11,8 @@ namespace Vedy.Infrastructure
 
         public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration configuration) 
         {
-            services.AddDbContext<IAppDbContext, AppDbContext>((options) =>
+            var section = configuration.GetSection("ConnectionStrings");
+            services.AddDbContext<AppDbContext>((options) =>
             {
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
             });

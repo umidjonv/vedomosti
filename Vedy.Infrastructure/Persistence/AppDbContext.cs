@@ -1,22 +1,19 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Vedy.Application.Interfaces;
 using Vedy.Data;
 
 namespace Vedy.Infrastructure.Persistence
 {
-    public class AppDbContext : DbContext, IAppDbContext
+    public class AppDbContext : DbContext
     {
-        public AppDbContext()
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+        : base(options)
         {
 
         }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            base.OnConfiguring(optionsBuilder);
-
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
