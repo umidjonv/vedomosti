@@ -44,7 +44,7 @@ namespace Vedy.Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("Vedy.Data.Customer", b =>
@@ -72,7 +72,7 @@ namespace Vedy.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("Vedy.Data.Statement", b =>
@@ -104,7 +104,7 @@ namespace Vedy.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Statements");
+                    b.ToTable("Statements", (string)null);
                 });
 
             modelBuilder.Entity("Vedy.Data.User", b =>
@@ -127,7 +127,7 @@ namespace Vedy.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Vedy.Data.Company", b =>
