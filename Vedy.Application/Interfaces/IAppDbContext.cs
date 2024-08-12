@@ -12,6 +12,8 @@ namespace Vedy.Application.Interfaces
 
         Task SaveChangesAsync();
 
+        DbSet<T> Set<T>() where T : class;
+
 
         
     }

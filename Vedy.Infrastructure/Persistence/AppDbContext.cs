@@ -14,9 +14,11 @@ namespace Vedy.Infrastructure.Persistence
 
         }
 
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<User>(entity =>
@@ -25,7 +27,7 @@ namespace Vedy.Infrastructure.Persistence
                 entity.HasMany(x => x.Statements)
                     .WithOne(x => x.User)
                     .HasForeignKey(x => x.UserId);
-
+                entity.HasQueryFilter(x => x.IsDeleted);
             });
 
             modelBuilder.Entity<Customer>(entity =>
@@ -34,6 +36,7 @@ namespace Vedy.Infrastructure.Persistence
                 entity.HasMany(x => x.Statements)
                     .WithOne(x => x.Customer)
                     .HasForeignKey(x => x.CustomerId);
+                entity.HasQueryFilter(x => x.IsDeleted);
             });
 
             modelBuilder.Entity<Company>(entity =>
@@ -42,6 +45,7 @@ namespace Vedy.Infrastructure.Persistence
                 entity.HasOne(x => x.Customer)
                     .WithMany(x => x.Companies)
                     .HasForeignKey(x => x.CustomerId);
+                entity.HasQueryFilter(x => x.IsDeleted);
             });
         }
 

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Vedy.Data;
+using Vedy.Common.Enums;
 
-namespace Vedy.Application.Interfaces
+namespace Vedy.Common.DTOs.User
 {
-    public interface IUserRepository : IRepository<User>
+    public class UserResult
     {
+        public long Id { get; set; }
     }
 }

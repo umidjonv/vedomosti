@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Vedy.Data;
 
-namespace Vedy.Application.Interfaces
+namespace Vedy.Common.BaseModels
 {
-    public interface IUserRepository : IRepository<User>
+    public class BaseRequest
     {
     }
 }

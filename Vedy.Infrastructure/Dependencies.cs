@@ -4,19 +4,22 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Vedy.Application.Interfaces;
 using Vedy.Infrastructure.Persistence;
+using Vedy.Infrastructure.Persistence.Users;
 namespace Vedy.Infrastructure
 {
     public static class Dependencies
     {
 
-        public static IServiceCollection AddDependencies(this IServiceCollection services, IConfiguration configuration) 
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) 
         {
             var section = configuration.GetSection("ConnectionStrings");
-            services.AddDbContext<AppDbContext>((options) =>
+            services.AddDbContext<IAppDbContext, AppDbContext>((options) =>
             {
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
             });
 
+
+            services.AddTransient<IUserRepository, UserRepository>();
             return services;
         }
 
