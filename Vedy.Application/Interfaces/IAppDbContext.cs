@@ -10,6 +10,9 @@ namespace Vedy.Application.Interfaces
         DbSet<Statement> Statements { get; }
         DbSet<Company> Companies { get; }
 
+        Task SaveChangesAsync();
+
+
         
     }
 }

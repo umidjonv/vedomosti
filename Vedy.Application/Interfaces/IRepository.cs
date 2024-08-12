@@ -8,7 +8,7 @@ namespace Vedy.Application.Interfaces
 {
     public interface IRepository<T>
     {
-        Task<T> GetById(long id);
+        Task<T?> GetById(long id);
         Task<IEnumerable<T>> GetAll();
         Task Add(T entity);
         Task Update(T entity);

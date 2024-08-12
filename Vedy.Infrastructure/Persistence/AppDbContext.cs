@@ -6,7 +6,7 @@ using Vedy.Data;
 
 namespace Vedy.Infrastructure.Persistence
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : DbContext, IAppDbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
@@ -52,5 +52,10 @@ namespace Vedy.Infrastructure.Persistence
         public DbSet<Statement> Statements { get; set; }
 
         public DbSet<Company> Companies { get; set; }
+
+        public async Task SaveChangesAsync()
+        {
+            await base.SaveChangesAsync();
+        }
     }
 }

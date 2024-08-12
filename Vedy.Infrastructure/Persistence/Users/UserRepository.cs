@@ -12,6 +12,8 @@ namespace Vedy.Infrastructure.Persistence.Users
     {
         public async Task Add(User entity)
         {
+            context.Users.Add(entity);
+            await context.SaveChangesAsync();
         }
 
         public Task Delete(long id)
@@ -19,19 +21,20 @@ namespace Vedy.Infrastructure.Persistence.Users
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<User>> GetAll()
+        public async Task<IEnumerable<User>> GetAll()
         {
-            throw new NotImplementedException();
+            return context.Users.AsEnumerable();
         }
 
-        public Task<User> GetById(long id)
+        public async Task<User?> GetById(long id)
         {
-            throw new NotImplementedException();
+            return context.Users.FirstOrDefault(x => x.Id == id);
         }
 
-        public Task Update(User entity)
+        public async Task Update(User entity)
         {
-            throw new NotImplementedException();
+            context.Users.Update(entity);
+            await context.SaveChangesAsync();
         }
     }
 }
