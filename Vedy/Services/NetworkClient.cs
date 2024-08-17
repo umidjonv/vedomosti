@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
+using Vedy.Common.BaseModels;
 
 namespace Vedy.Services
 {
@@ -33,5 +35,71 @@ namespace Vedy.Services
         {
             
         }
+        public async Task<TModel> PostRequestAsync<TModel>(string baseUrl,object body, CancellationToken cancellationToken)
+        {
+            try
+            {
+                using StringContent jsonContent = new(
+                        JsonSerializer.Serialize(body),
+                        Encoding.UTF8);
+
+                var client = await CreateClient();
+
+                var response = await client.PostAsync(new Uri(baseUrl), jsonContent, cancellationToken);
+
+
+                var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);
+
+                var responseModel = DeserializeResponse<TModel>(responseJson) ?? throw new Exception("esponse body is null");
+
+                return responseModel;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<TModel> GetRequestAsync<TModel>(string baseUrl, CancellationToken cancellationToken)
+        {
+            try
+            {
+
+                var client = await CreateClient();
+
+                var response = await client.GetAsync(new Uri(baseUrl), cancellationToken);
+
+                var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);
+
+                var responseModel = DeserializeResponse<TModel>(responseJson) ?? throw new Exception("response body is null");
+
+                return responseModel;
+            }
+            catch (HttpRequestException ex)
+            {
+                throw;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public T DeserializeResponse<T>(string responseString)
+        {
+            var responseModel = JsonSerializer.Deserialize<BaseResponse<T>>(responseString);
+
+            if (responseModel == null || responseModel.IsSuccess)
+            {
+                throw new Exception("Cannot parsing returned model");
+            }
+
+            return responseModel.Data;
+        }
+
     }
 }

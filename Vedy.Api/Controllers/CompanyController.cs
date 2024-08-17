@@ -4,9 +4,9 @@ using Vedy.Infrastructure.Services;
 
 namespace Vedy.Api.Controllers
 {
-    public class CustomerCompanyController(ILogger<CustomerCompanyController> logger, CustomerCompanyService customerCompanyService) : BaseController
+    public class CompanyController(ILogger<CompanyController> logger, CustomerCompanyService customerCompanyService) : BaseController
     {
-        private readonly ILogger<CustomerCompanyController> _logger = logger;
+        private readonly ILogger<CompanyController> _logger = logger;
         private readonly CustomerCompanyService _userService = customerCompanyService;
         
         [HttpPost]
@@ -20,8 +20,9 @@ namespace Vedy.Api.Controllers
                     throw new ArgumentException();
                 }
 
-                var result = await _userService.AddUser(user);
-                return Success(result);
+                //var result = await _userService.AddUser(user);
+                return Success("");
+
             }
             catch (Exception ex)
             {
@@ -38,9 +39,9 @@ namespace Vedy.Api.Controllers
                 {
                     throw new ArgumentException();
                 }
-                var result = await _userService.GetUser(id);
+                //var result = await _userService.GetUser(id);
 
-                return Success(result);
+                return Success("");
             }catch (Exception ex) 
             {
                 return Bad(ex.Message);

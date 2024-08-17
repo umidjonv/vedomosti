@@ -7,5 +7,6 @@
         
         public string CompanyName { get; set; }
 
+        public string Tin { get; set; }
     }
 }
