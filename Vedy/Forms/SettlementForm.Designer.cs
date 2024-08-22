@@ -128,6 +128,7 @@
             btnSelectCompany.TabIndex = 3;
             btnSelectCompany.Text = "Выбрать";
             btnSelectCompany.UseVisualStyleBackColor = true;
+            btnSelectCompany.Click += btnSelectCompany_Click;
             // 
             // textBox1
             // 

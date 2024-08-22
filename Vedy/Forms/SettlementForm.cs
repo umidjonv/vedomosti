@@ -26,7 +26,7 @@ namespace Vedy.Forms
 
         public void InitData()
         {
-            
+
         }
         private CancellationToken GetToken()
         {
@@ -44,6 +44,11 @@ namespace Vedy.Forms
                 _companyList = new List<CompanyModel>();
             }
 
+
+        }
+
+        private void btnSelectCompany_Click(object sender, EventArgs e)
+        {
 
         }
     }
