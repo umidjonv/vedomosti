@@ -1,5 +1,4 @@
-﻿
-namespace Vedy.Models
+﻿namespace Vedy.Common.DTOs.Company
 {
     public class CompanyModel
     {

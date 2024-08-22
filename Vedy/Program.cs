@@ -30,7 +30,8 @@ namespace Vedy
             using (var scope = Container.BeginLifetimeScope())
             {
                 ApplicationConfiguration.Initialize();
-                Application.Run(new Main());
+                var form = scope.Resolve<SettlementForm>();
+                Application.Run(form);
             }
         }
     }

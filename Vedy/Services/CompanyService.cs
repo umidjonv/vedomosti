@@ -1,4 +1,6 @@
-﻿using Vedy.Models;
+﻿using Vedy.Common.DTOs.Company;
+using Vedy.Consts;
+using Vedy.Models;
 
 namespace Vedy.Services
 {
@@ -13,13 +15,19 @@ namespace Vedy.Services
 
         public async Task<CompanyModel> GetCompanyById(int id, CancellationToken cancellationToken)
         {
-            var company = await _networkClient.GetRequestAsync<CompanyModel>($"/company/get/{id}", cancellationToken);
+            var company = await _networkClient.GetRequestAsync<CompanyModel>($"{AppConsts.API_URL}company/get/{id}", cancellationToken);
             return company;
         }
 
         public Task<CompanyModel> GetCompanyByName(string name, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<CompanyModel>> GetCompanyList(CancellationToken cancellationToken)
+        {
+            var company = await _networkClient.GetRequestAsync<List<CompanyModel>>($"{AppConsts.API_URL}company/getall", cancellationToken);
+            return company;
         }
 
         public Task<PaginationModel<CompanyModel>> GetPage(int page, int size, CancellationToken cancellationToken)

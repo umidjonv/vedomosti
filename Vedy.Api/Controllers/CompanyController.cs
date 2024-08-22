@@ -4,10 +4,10 @@ using Vedy.Infrastructure.Services;
 
 namespace Vedy.Api.Controllers
 {
-    public class CompanyController(ILogger<CompanyController> logger, CustomerCompanyService customerCompanyService) : BaseController
+    public class CompanyController(ILogger<CompanyController> logger, CompanyService customerCompanyService) : BaseController
     {
         private readonly ILogger<CompanyController> _logger = logger;
-        private readonly CustomerCompanyService _userService = customerCompanyService;
+        private readonly CompanyService _companyService = customerCompanyService;
         
         [HttpPost]
         [ProducesResponseType(200, Type= typeof(UserResult))]
@@ -39,10 +39,25 @@ namespace Vedy.Api.Controllers
                 {
                     throw new ArgumentException();
                 }
-                //var result = await _userService.GetUser(id);
+                
 
                 return Success("");
             }catch (Exception ex) 
+            {
+                return Bad(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            try
+            {
+                var result = await _companyService.GetAll();
+
+                return Success(result);
+            }
+            catch (Exception ex)
             {
                 return Bad(ex.Message);
             }

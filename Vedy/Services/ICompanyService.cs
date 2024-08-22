@@ -1,4 +1,5 @@
-﻿using Vedy.Models;
+﻿using Vedy.Common.DTOs.Company;
+using Vedy.Models;
 
 namespace Vedy.Services
 {
@@ -9,6 +10,7 @@ namespace Vedy.Services
         Task<CompanyModel> GetCompanyByName(string name, CancellationToken cancellationToken);
 
         Task<PaginationModel<CompanyModel>> GetPage(int page, int size, CancellationToken cancellationToken);
+        Task<List<CompanyModel>> GetCompanyList(CancellationToken cancellationToken);
 
     }
 }

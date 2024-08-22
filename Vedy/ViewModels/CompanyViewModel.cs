@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using Vedy.Models;
+using Vedy.Common.DTOs.Company;
 
 namespace Vedy.ViewModels
 {

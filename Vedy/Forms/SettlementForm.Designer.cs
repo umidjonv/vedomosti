@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             gpSettlement = new GroupBox();
+            btnClose = new Button();
+            pictureBox1 = new PictureBox();
             textBox3 = new TextBox();
             label3 = new Label();
             textBox2 = new TextBox();
@@ -39,11 +41,9 @@
             btnSave = new Button();
             label4 = new Label();
             settlementNumber = new Label();
-            pictureBox1 = new PictureBox();
             label5 = new Label();
             label6 = new Label();
             dgvSettlement = new DataGridView();
-            btnClose = new Button();
             gpSettlement.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvSettlement).BeginInit();
@@ -70,6 +70,23 @@
             gpSettlement.TabIndex = 0;
             gpSettlement.TabStop = false;
             gpSettlement.Text = "Регистрация Авто";
+            // 
+            // btnClose
+            // 
+            btnClose.Location = new Point(231, 558);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(105, 44);
+            btnClose.TabIndex = 10;
+            btnClose.Text = "Закрыть";
+            btnClose.UseVisualStyleBackColor = true;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(6, 310);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(330, 224);
+            pictureBox1.TabIndex = 9;
+            pictureBox1.TabStop = false;
             // 
             // textBox3
             // 
@@ -155,14 +172,6 @@
             settlementNumber.TabIndex = 8;
             settlementNumber.Text = "123456";
             // 
-            // pictureBox1
-            // 
-            pictureBox1.Location = new Point(6, 310);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(330, 224);
-            pictureBox1.TabIndex = 9;
-            pictureBox1.TabStop = false;
-            // 
             // label5
             // 
             label5.AutoSize = true;
@@ -189,15 +198,6 @@
             dgvSettlement.Size = new Size(765, 742);
             dgvSettlement.TabIndex = 11;
             // 
-            // btnClose
-            // 
-            btnClose.Location = new Point(231, 558);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new Size(105, 44);
-            btnClose.TabIndex = 10;
-            btnClose.Text = "Закрыть";
-            btnClose.UseVisualStyleBackColor = true;
-            // 
             // SettlementForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -213,6 +213,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "SettlementForm";
             Text = "Ведомость";
+            Load += SettlementForm_Load;
             gpSettlement.ResumeLayout(false);
             gpSettlement.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
