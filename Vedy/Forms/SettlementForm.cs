@@ -38,7 +38,11 @@ namespace Vedy.Forms
 
         private async void SettlementForm_Load(object sender, EventArgs e)
         {
-            _companyList = await _companyService.GetCompanyList(GetToken()).ConfigureAwait(false);
+            var companyModels = await _companyService.GetCompanyList(GetToken()).ConfigureAwait(false);
+            if (companyModels == null)
+            {
+                _companyList = new List<CompanyModel>();
+            }
 
 
         }

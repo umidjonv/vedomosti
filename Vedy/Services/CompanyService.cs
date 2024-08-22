@@ -24,9 +24,9 @@ namespace Vedy.Services
             throw new NotImplementedException();
         }
 
-        public async Task<List<CompanyModel>> GetCompanyList(CancellationToken cancellationToken)
+        public async Task<List<CompanyModel>?> GetCompanyList(CancellationToken cancellationToken)
         {
-            var company = await _networkClient.GetRequestAsync<List<CompanyModel>>($"{AppConsts.API_URL}company/getall", cancellationToken);
+            var company = await _networkClient.GetRequestAsync<List<CompanyModel>?>($"{AppConsts.API_URL}company/getall", cancellationToken);
             return company;
         }
 
