@@ -34,5 +34,21 @@ namespace Vedy.Infrastructure.Services
 
             return response;
         }
+
+        public async Task<Company?> AddCompany(CompanyModel company)
+        {
+            var result = await _companyRepository.AddAsync(new Company
+            {
+                CompanyName = company.Name,
+                Tin = company.TIN
+            });
+
+            return result;
+        }
+
+        public async Task DeleteCompany(long id)
+        {
+            await _companyRepository.DeleteAsync(id);
+        }
     }
 }

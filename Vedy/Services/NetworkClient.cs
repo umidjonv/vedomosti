@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -40,7 +41,7 @@ namespace Vedy.Services
             try
             {
                 using StringContent jsonContent = new(
-                        JsonSerializer.Serialize(body),
+                        JsonConvert.SerializeObject(body),
                         Encoding.UTF8);
 
                 var client = await CreateClient();
@@ -91,9 +92,9 @@ namespace Vedy.Services
 
         public T DeserializeResponse<T>(string responseString)
         {
-            var responseModel = JsonSerializer.Deserialize<BaseResponse<T>>(responseString);
+            var responseModel = JsonConvert.DeserializeObject<BaseResponse<T>>(responseString);
 
-            if (responseModel == null || responseModel.IsSuccess)
+            if (responseModel == null || !responseModel.IsSuccess)
             {
                 throw new Exception("Cannot parsing returned model");
             }

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Vedy.Common.DTOs.Company;
 using Vedy.Common.DTOs.User;
 using Vedy.Infrastructure.Services;
 
@@ -56,6 +57,37 @@ namespace Vedy.Api.Controllers
                 var result = await _companyService.GetAll();
 
                 return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return Bad(ex.Message);
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody]CompanyModel company)
+        {
+            try
+            {
+                var result = await _companyService.AddCompany(company);
+
+                return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return Bad(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            try
+            {
+                await _companyService.DeleteCompany(id);
+
+                return Success(id);
             }
             catch (Exception ex)
             {

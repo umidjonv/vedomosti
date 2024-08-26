@@ -12,5 +12,7 @@ namespace Vedy.Services
         Task<PaginationModel<CompanyModel>> GetPage(int page, int size, CancellationToken cancellationToken);
         Task<List<CompanyModel>> GetCompanyList(CancellationToken cancellationToken);
 
+        Task<CompanyModel> AddCompany(CompanyModel company, CancellationToken cancellationToken);
+        Task<long> Delete(long id, CancellationToken cancellationToken);
     }
 }

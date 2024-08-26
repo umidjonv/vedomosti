@@ -8,6 +8,8 @@
         public string SignHash { get; set; }
 
         public virtual IEnumerable<Statement> Statements { get; set; }
-        public virtual IEnumerable<Company> Companies { get; set; }
+        
+        public long? CompanyId { get; set; }
+        public virtual Company? Company { get; set; }
     }
 }

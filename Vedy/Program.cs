@@ -24,6 +24,7 @@ namespace Vedy
             builder.RegisterType<CompanyService>().As<ICompanyService>();
 
             builder.RegisterType<Main>();
+            builder.RegisterType<CompanyForm>();
             builder.RegisterType<SettlementForm>();
             Container = builder.Build();
 

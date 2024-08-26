@@ -19,10 +19,19 @@ namespace Vedy.ViewModels
         {
             _company = new CompanyModel();
         }
-        
+
+        public void SelectedCompany(CompanyModel company)
+        {
+            _company = company;
+            OnPropertyChanged(nameof(CompanyModel.Name));
+            OnPropertyChanged(nameof(CompanyModel.TIN));
+        }
+
         public CompanyViewModel(CompanyModel company)
         {
             _company = company;
+            
+            
         }
 
         public long Id
@@ -33,7 +42,7 @@ namespace Vedy.ViewModels
                 if (_company.Id == value)
                 {
                     _company.Id = value;
-                    OnPropertyChanged(nameof(CompanyModel.Id));
+                    //OnPropertyChanged(nameof(CompanyModel.Id));
                 }
             }
         }
@@ -46,7 +55,7 @@ namespace Vedy.ViewModels
                 if (_company.Name == value)
                 {
                     _company.Name = value;
-                    OnPropertyChanged(nameof(CompanyModel.Name));
+                    //OnPropertyChanged(nameof(CompanyModel.Name));
                 }
             }
         }

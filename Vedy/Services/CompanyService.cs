@@ -1,4 +1,5 @@
-﻿using Vedy.Common.DTOs.Company;
+﻿using System.Threading;
+using Vedy.Common.DTOs.Company;
 using Vedy.Consts;
 using Vedy.Models;
 
@@ -11,6 +12,18 @@ namespace Vedy.Services
         public CompanyService(INetworkClient networkClient) 
         {
             _networkClient = networkClient;
+        }
+
+        public async Task<CompanyModel> AddCompany(CompanyModel company, CancellationToken cancellationToken)
+        {
+            var result = await _networkClient.PostRequestAsync<CompanyModel>($"{AppConsts.API_URL}company/add", company, cancellationToken);
+            return result;
+        }
+
+        public async Task<long> Delete(long id, CancellationToken cancellationToken)
+        {
+            var result = await _networkClient.GetRequestAsync<long>($"{AppConsts.API_URL}company/delete/{id}", cancellationToken);
+            return result;
         }
 
         public async Task<CompanyModel> GetCompanyById(int id, CancellationToken cancellationToken)

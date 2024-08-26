@@ -36,15 +36,16 @@ namespace Vedy.Infrastructure.Persistence
                 entity.HasMany(x => x.Statements)
                     .WithOne(x => x.Customer)
                     .HasForeignKey(x => x.CustomerId);
+
+                entity.HasOne(x => x.Company)
+                    .WithMany(x => x.Customers)
+                    .HasForeignKey(x => x.CompanyId);
                 entity.HasQueryFilter(x => !x.IsDeleted);
             });
 
             modelBuilder.Entity<Company>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.HasOne(x => x.Customer)
-                    .WithMany(x => x.Companies)
-                    .HasForeignKey(x => x.CustomerId);
                 entity.HasQueryFilter(x => !x.IsDeleted);
             });
         }
