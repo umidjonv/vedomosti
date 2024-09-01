@@ -6,6 +6,6 @@
         public string CompanyName { get; set; }
 
         public string Tin { get; set; }
-        public virtual List<Customer> Customers { get; set; }
+        public virtual List<CustomerEntry> CustomerEntries { get; set; }
     }
 }

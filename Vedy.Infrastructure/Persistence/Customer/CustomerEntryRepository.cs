@@ -8,9 +8,9 @@ using Vedy.Data;
 
 namespace Vedy.Infrastructure.Persistence.Users
 {
-    public class CustomerRepository :GenericRepository<Customer>,  ICustomerRepository
+    public class CustomerEntryRepository :GenericRepository<CustomerEntry>,  ICustomerEntryRepository
     {
-        public CustomerRepository(IAppDbContext context) :base(context) 
+        public CustomerEntryRepository(IAppDbContext context) :base(context) 
         {
         }
         

@@ -8,6 +8,6 @@ namespace Vedy.Data
 
         public UserRole Role { get; set; } 
 
-        public virtual IEnumerable<Statement> Statements { get; set; }
+        public virtual IEnumerable<Settlement> Statements { get; set; }
     }
 }
