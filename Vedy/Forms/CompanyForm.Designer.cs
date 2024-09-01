@@ -30,6 +30,7 @@
         {
             dgvCompany = new DataGridView();
             gpSettlement = new GroupBox();
+            button1 = new Button();
             btnClear = new Button();
             btnDelete = new Button();
             btnAdd = new Button();
@@ -39,6 +40,7 @@
             tbxName = new TextBox();
             label1 = new Label();
             btnSave = new Button();
+            btnSelect = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCompany).BeginInit();
             gpSettlement.SuspendLayout();
             SuspendLayout();
@@ -54,13 +56,15 @@
             dgvCompany.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCompany.Location = new Point(5, 115);
             dgvCompany.Name = "dgvCompany";
-            dgvCompany.Size = new Size(576, 333);
+            dgvCompany.Size = new Size(617, 333);
             dgvCompany.TabIndex = 12;
             dgvCompany.CellClick += dgvCompany_CellClick;
             // 
             // gpSettlement
             // 
             gpSettlement.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            gpSettlement.Controls.Add(btnSelect);
+            gpSettlement.Controls.Add(button1);
             gpSettlement.Controls.Add(btnClear);
             gpSettlement.Controls.Add(btnDelete);
             gpSettlement.Controls.Add(btnAdd);
@@ -74,14 +78,24 @@
             gpSettlement.Margin = new Padding(3, 4, 3, 4);
             gpSettlement.Name = "gpSettlement";
             gpSettlement.Padding = new Padding(3, 4, 3, 4);
-            gpSettlement.Size = new Size(576, 105);
+            gpSettlement.Size = new Size(617, 105);
             gpSettlement.TabIndex = 13;
             gpSettlement.TabStop = false;
             gpSettlement.Text = "Компания ";
             // 
+            // button1
+            // 
+            button1.Location = new Point(421, 76);
+            button1.Name = "button1";
+            button1.Size = new Size(91, 29);
+            button1.TabIndex = 14;
+            button1.Text = "Обновить";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += btnUpdate_Click;
+            // 
             // btnClear
             // 
-            btnClear.Location = new Point(479, 58);
+            btnClear.Location = new Point(518, 26);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(91, 29);
             btnClear.TabIndex = 13;
@@ -91,16 +105,17 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(382, 23);
+            btnDelete.Location = new Point(518, 76);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(91, 29);
             btnDelete.TabIndex = 12;
             btnDelete.Text = "Удалить";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(479, 23);
+            btnAdd.Location = new Point(324, 76);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(91, 29);
             btnAdd.TabIndex = 11;
@@ -158,11 +173,21 @@
             btnSave.Text = "Сохранить";
             btnSave.UseVisualStyleBackColor = true;
             // 
+            // btnSelect
+            // 
+            btnSelect.Location = new Point(324, 30);
+            btnSelect.Name = "btnSelect";
+            btnSelect.Size = new Size(188, 29);
+            btnSelect.TabIndex = 15;
+            btnSelect.Text = "Очистить";
+            btnSelect.UseVisualStyleBackColor = true;
+            btnSelect.Click += btnSelect_Click;
+            // 
             // CompanyForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(585, 460);
+            ClientSize = new Size(624, 460);
             Controls.Add(gpSettlement);
             Controls.Add(dgvCompany);
             Name = "CompanyForm";
@@ -187,5 +212,7 @@
         private Label label1;
         private Button btnSave;
         private Button btnClear;
+        private Button button1;
+        private Button btnSelect;
     }
 }

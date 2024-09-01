@@ -12,11 +12,11 @@ namespace Vedy.Api.Controllers
         
         [HttpPost]
         [ProducesResponseType(200, Type= typeof(UserResult))]
-        public async Task<IActionResult> CreateCompany([FromBody] UserCreate user)
+        public async Task<IActionResult> CreateCompany([FromBody] CompanyModel company)
         {
             try
             {
-                if (user == null)
+                if (company == null)
                 {
                     throw new ArgumentException();
                 }
@@ -73,6 +73,22 @@ namespace Vedy.Api.Controllers
                 var result = await _companyService.AddCompany(company);
 
                 return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return Bad(ex.Message);
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Update([FromBody] CompanyModel company)
+        {
+            try
+            {
+                await _companyService.UpdateCompany(company);
+
+                return Success(true);
             }
             catch (Exception ex)
             {

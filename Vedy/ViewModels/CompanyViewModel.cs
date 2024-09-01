@@ -24,7 +24,7 @@ namespace Vedy.ViewModels
         {
             _company = company;
             OnPropertyChanged(nameof(CompanyModel.Name));
-            OnPropertyChanged(nameof(CompanyModel.TIN));
+            OnPropertyChanged(nameof(CompanyModel.Tin));
         }
 
         public CompanyViewModel(CompanyModel company)
@@ -62,13 +62,13 @@ namespace Vedy.ViewModels
 
         public string Tin
         {
-            get { return _company.TIN; }
+            get { return _company.Tin; }
             set
             {
-                if (_company.TIN == value)
+                if (_company.Tin == value)
                 {
-                    _company.TIN = value;
-                    OnPropertyChanged(nameof(CompanyModel.TIN));
+                    _company.Tin = value;
+                    OnPropertyChanged(nameof(CompanyModel.Tin));
                 }
             }
         }

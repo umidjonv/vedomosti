@@ -29,16 +29,19 @@ namespace Vedy.Forms
 
         private List<CompanyModel> companyList = new List<CompanyModel>();
         private CompanyModel _selectedCompany;
-
-
-        private async void CompanyForm_Load(object sender, EventArgs e)
+        private async Task DgvUpdate()
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             companyList = await _companyService.GetCompanyList(tokenSource.Token);
             dgvCompany.DataSource = companyList;
-            //dgvCompany.Columns[nameof(CompanyModel.Id)].\
             dgvCompany.Update();
             dgvCompany.Refresh();
+        }
+
+
+        private async void CompanyForm_Load(object sender, EventArgs e)
+        {
+            DgvUpdate();
             //if (tbxName.DataBindings.Count == 0)
             //    tbxName.DataBindings.Add("Text", _viewModel, "Name", false, DataSourceUpdateMode.OnPropertyChanged);
             //if (tbxTin.DataBindings.Count == 0)
@@ -58,12 +61,8 @@ namespace Vedy.Forms
             _selectedCompany = companyList.FirstOrDefault(x => x.Id == value);
 
             tbxName.Text = _selectedCompany.Name;
-            tbxTin.Text = _selectedCompany.TIN;
+            tbxTin.Text = _selectedCompany.Tin;
 
-            //if (company != null)
-            //{
-            //    _viewModel.SelectedCompany(company);
-            //}
         }
 
         private async void btnAdd_Click(object sender, EventArgs e)
@@ -71,11 +70,12 @@ namespace Vedy.Forms
             var company = new CompanyModel
             {
                 Name = tbxName.Text,
-                TIN = tbxTin.Text,
+                Tin = tbxTin.Text,
             };
 
             _selectedCompany = await _companyService.AddCompany(company, TokenExtension.GetToken());
             companyList.Add(_selectedCompany);
+            await DgvUpdate();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
@@ -84,9 +84,34 @@ namespace Vedy.Forms
             tbxTin.Text = string.Empty;
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        private async void btnDelete_Click(object sender, EventArgs e)
         {
+            var id = await _companyService.Delete(_selectedCompany.Id, TokenExtension.GetToken());
+            await DgvUpdate();
+        }
 
+        private async void btnUpdate_Click(object sender, EventArgs e)
+        {
+            var company = new CompanyModel
+            {
+                Id = _selectedCompany.Id,
+                Name = tbxName.Text,
+                Tin = tbxTin.Text,
+            };
+
+            await _companyService.UpdateCompany(company, TokenExtension.GetToken());
+            await DgvUpdate();
+        }
+
+        private void btnSelect_Click(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        public CompanyModel GetResult()
+        {
+            return _selectedCompany;
         }
     }
 }

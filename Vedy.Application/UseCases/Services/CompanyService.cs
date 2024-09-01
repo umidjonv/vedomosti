@@ -28,22 +28,32 @@ namespace Vedy.Infrastructure.Services
                 {
                     Id = company.Id,
                     Name = company.CompanyName,
-                    TIN = company.Tin,
+                    Tin = company.Tin,
                 });
             }
 
             return response;
         }
 
-        public async Task<Company?> AddCompany(CompanyModel company)
+        public async Task<CompanyModel?> AddCompany(CompanyModel company)
         {
             var result = await _companyRepository.AddAsync(new Company
             {
                 CompanyName = company.Name,
-                Tin = company.TIN
+                Tin = company.Tin
             });
 
-            return result;
+            return new CompanyModel { Id = result.Id, Name = result.CompanyName, Tin = result.Tin };
+        }
+
+        public async Task UpdateCompany(CompanyModel company)
+        {
+            await _companyRepository.UpdateAsync(new Company
+            {
+                Id= company.Id,
+                CompanyName = company.Name,
+                Tin = company.Tin
+            });
         }
 
         public async Task DeleteCompany(long id)

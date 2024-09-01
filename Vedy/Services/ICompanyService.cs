@@ -13,6 +13,7 @@ namespace Vedy.Services
         Task<List<CompanyModel>> GetCompanyList(CancellationToken cancellationToken);
 
         Task<CompanyModel> AddCompany(CompanyModel company, CancellationToken cancellationToken);
+        Task<bool> UpdateCompany(CompanyModel company, CancellationToken cancellationToken);
         Task<long> Delete(long id, CancellationToken cancellationToken);
     }
 }

@@ -40,9 +40,7 @@ namespace Vedy.Services
         {
             try
             {
-                using StringContent jsonContent = new(
-                        JsonConvert.SerializeObject(body),
-                        Encoding.UTF8);
+                StringContent jsonContent = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json");
 
                 var client = await CreateClient();
 

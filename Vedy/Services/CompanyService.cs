@@ -19,6 +19,11 @@ namespace Vedy.Services
             var result = await _networkClient.PostRequestAsync<CompanyModel>($"{AppConsts.API_URL}company/add", company, cancellationToken);
             return result;
         }
+        public async Task<bool> UpdateCompany(CompanyModel company, CancellationToken cancellationToken)
+        {
+            var result = await _networkClient.PostRequestAsync<bool>($"{AppConsts.API_URL}company/update", company, cancellationToken);
+            return result;
+        }
 
         public async Task<long> Delete(long id, CancellationToken cancellationToken)
         {

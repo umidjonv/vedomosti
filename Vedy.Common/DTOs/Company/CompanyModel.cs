@@ -11,6 +11,6 @@ namespace Vedy.Common.DTOs.Company
         [JsonProperty("name")]
         public string Name { get; set; }
         [JsonProperty("tin")]
-        public string TIN { get; set; }
+        public string Tin { get; set; }
     }
 }
