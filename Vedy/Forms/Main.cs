@@ -8,5 +8,6 @@ namespace Vedy
             InitializeComponent();
         }
         public STU_Tablet stu_Tablet;
+
     }
 }

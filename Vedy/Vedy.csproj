@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" Version="8.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Vedy.Common\Vedy.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Interop.wgssSTU">
       <HintPath>Interop.wgssSTU.dll</HintPath>
     </Reference>

@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace Vedy.Services
 {
-    internal interface INetworkClient
+    public interface INetworkClient
     {
         Task<HttpClient> CreateClient();
 
         Task DestroyClient(HttpClient client);
+
+        Task<TModel> PostRequestAsync<TModel>(string baseUrl, object body, CancellationToken cancellationToken);
+
+        Task<TModel> GetRequestAsync<TModel>(string baseUrl, CancellationToken cancellationToken);
 
     }
 }

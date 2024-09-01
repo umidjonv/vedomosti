@@ -9,11 +9,11 @@ using Vedy.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace Vedy.Infrastructure.Migrations
+namespace Vedy.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240804143217_Init")]
-    partial class Init
+    [Migration("20240825121036_NewCompanyChange")]
+    partial class NewCompanyChange
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,12 +37,14 @@ namespace Vedy.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<long>("CustomerId")
-                        .HasColumnType("bigint");
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Tin")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("Companies");
                 });
@@ -59,15 +61,23 @@ namespace Vedy.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long?>("CompanyId")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<string>("SignHash")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Customers");
                 });
@@ -88,6 +98,9 @@ namespace Vedy.Infrastructure.Migrations
 
                     b.Property<long>("CustomerId")
                         .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -113,6 +126,9 @@ namespace Vedy.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
@@ -121,15 +137,13 @@ namespace Vedy.Infrastructure.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Vedy.Data.Company", b =>
+            modelBuilder.Entity("Vedy.Data.Customer", b =>
                 {
-                    b.HasOne("Vedy.Data.Customer", "Customer")
-                        .WithMany("Companies")
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Vedy.Data.Company", "Company")
+                        .WithMany("Customers")
+                        .HasForeignKey("CompanyId");
 
-                    b.Navigation("Customer");
+                    b.Navigation("Company");
                 });
 
             modelBuilder.Entity("Vedy.Data.Statement", b =>
@@ -151,10 +165,13 @@ namespace Vedy.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Vedy.Data.Company", b =>
+                {
+                    b.Navigation("Customers");
+                });
+
             modelBuilder.Entity("Vedy.Data.Customer", b =>
                 {
-                    b.Navigation("Companies");
-
                     b.Navigation("Statements");
                 });
 

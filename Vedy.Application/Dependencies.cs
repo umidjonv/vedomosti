@@ -13,6 +13,7 @@ namespace Vedy.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddTransient<UserService>();
+            services.AddTransient<CompanyService>();
             return services;
         }
 

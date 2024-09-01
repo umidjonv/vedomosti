@@ -9,11 +9,11 @@ using Vedy.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace Vedy.Infrastructure.Migrations
+namespace Vedy.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240812174138_AddIsDeletedToEntities")]
-    partial class AddIsDeletedToEntities
+    [Migration("20240822061605_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,6 +42,10 @@ namespace Vedy.Infrastructure.Migrations
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("Tin")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 

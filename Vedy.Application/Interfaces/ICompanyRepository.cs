@@ -7,7 +7,7 @@ using Vedy.Data;
 
 namespace Vedy.Application.Interfaces
 {
-    public interface ICustomerRepository : IRepository<Customer>
+    public interface ICompanyRepository : IRepository<Company>
     {
     }
 }

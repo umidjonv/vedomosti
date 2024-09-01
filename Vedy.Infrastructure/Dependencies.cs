@@ -15,11 +15,13 @@ namespace Vedy.Infrastructure
             var section = configuration.GetSection("ConnectionStrings");
             services.AddDbContext<IAppDbContext, AppDbContext>((options) =>
             {
-                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
+                options.UseNpgsql("Host=localhost;Database=VedyDb;Username=postgres;Password=123456");
             });
 
 
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<ICompanyRepository, CompanyRepository>();
+            services.AddTransient<ICustomerRepository, CustomerRepository>();
             return services;
         }
 
