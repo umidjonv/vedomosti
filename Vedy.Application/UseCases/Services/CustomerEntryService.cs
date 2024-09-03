@@ -20,38 +20,73 @@ namespace Vedy.Infrastructure.Services
 
         public async Task<List<CustomerEntryModel>> GetAll()
         {
-            var customers = await _customerRepository.GetAllAsync();
+            var entries = await _customerRepository.GetAll();
             var response = new List<CustomerEntryModel>();
-            foreach (var company in customers)
+            foreach (var customerEntry in entries)
             {
 
                 response.Add(new CustomerEntryModel 
                 {
-                    
+                    Id = customerEntry.Id,
+                    CarNumber = customerEntry.CarNumber,
+                    Amount = customerEntry.Amount,
+                    CompanyId = customerEntry.CompanyId,
+                    CompanyName = customerEntry.Company.CompanyName,
+                    CreatedDate = customerEntry.CreatedDate.ToUniversalTime(),
+                    FullName = customerEntry.FullName,
+                    SettlementDate = customerEntry.Settlement.Date,
+                    SettlementId = customerEntry.SettlementId,
+                    SettlementNumber = customerEntry.Settlement.Number,
+                    SignHash = customerEntry.SignHash,
+                                        
                 });
             }
 
             return response;
         }
 
-        public async Task<CustomerEntryModel?> Add(CustomerEntryModel company)
+        public async Task<CustomerEntryModel?> Add(CustomerEntryModel entry)
         {
             var result = await _customerRepository.AddAsync(new CustomerEntry
             {
-                //CompanyName = company.Name,
-                //Tin = company.Tin
+                FullName = entry.FullName,
+                CompanyId = entry.CompanyId,
+                CreatedDate = entry.CreatedDate.ToUniversalTime(),
+                Amount = entry.Amount,
+                CarNumber = entry.CarNumber,
+                SettlementId = entry.SettlementId,
+                SignHash = entry.SignHash
+                
             });
 
-            return new CustomerEntryModel {  };
+            return new CustomerEntryModel 
+            {
+                Id = result.Id,
+                CompanyId = result.CompanyId,
+                CreatedDate = result.CreatedDate,
+                FullName = result.FullName,
+                CarNumber = result.CarNumber,
+                SignHash= result.SignHash,
+                SettlementId= result.SettlementId,
+                Amount= result.Amount,
+                CompanyName = entry.CompanyName,
+                SettlementDate = entry.SettlementDate,
+                SettlementNumber = entry.SettlementNumber  
+            };
         }
 
-        public async Task Update(CustomerEntryModel company)
+        public async Task Update(CustomerEntryModel entry)
         {
             await _customerRepository.UpdateAsync(new CustomerEntry
             {
-                //Id= company.Id,
-                //CompanyName = company.Name,
-                //Tin = company.Tin
+                FullName = entry.FullName,
+                CompanyId = entry.CompanyId,
+                CreatedDate = entry.CreatedDate,
+                Amount = entry.Amount,
+                CarNumber = entry.CarNumber,
+                SettlementId = entry.SettlementId,
+                SignHash = entry.SignHash
+
             });
         }
 

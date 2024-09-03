@@ -24,7 +24,7 @@ namespace Vedy.Infrastructure.Persistence
             modelBuilder.Entity<User>(entity =>
             {
                 entity.HasKey(e => e.Id);
-                entity.HasMany(x => x.Statements)
+                entity.HasMany(x => x.Settlements)
                     .WithOne(x => x.User)
                     .HasForeignKey(x => x.UserId);
                 entity.HasQueryFilter(x => !x.IsDeleted);
@@ -68,7 +68,7 @@ namespace Vedy.Infrastructure.Persistence
 
         public DbSet<CustomerEntry> CustomerEntries { get; set; }
 
-        public DbSet<Settlement> Statements { get; set; }
+        public DbSet<Settlement> Settlements { get; set; }
 
         public DbSet<Company> Companies { get; set; }
 

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             gpSettlements = new GroupBox();
-            dataGridView1 = new DataGridView();
+            dgvSettlements = new DataGridView();
             dgvCustomer = new DataGridView();
             gpCustomer = new GroupBox();
             label1 = new Label();
@@ -37,7 +37,7 @@
             menuStrip1 = new MenuStrip();
             клиентыToolStripMenuItem = new ToolStripMenuItem();
             gpSettlements.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSettlements).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvCustomer).BeginInit();
             gpCustomer.SuspendLayout();
             menuStrip1.SuspendLayout();
@@ -45,7 +45,7 @@
             // 
             // gpSettlements
             // 
-            gpSettlements.Controls.Add(dataGridView1);
+            gpSettlements.Controls.Add(dgvSettlements);
             gpSettlements.Dock = DockStyle.Right;
             gpSettlements.Location = new Point(368, 24);
             gpSettlements.Margin = new Padding(3, 4, 3, 4);
@@ -56,16 +56,17 @@
             gpSettlements.TabStop = false;
             gpSettlements.Text = "Ведомости";
             // 
-            // dataGridView1
+            // dgvSettlements
             // 
-            dataGridView1.Anchor = AnchorStyles.Top;
-            dataGridView1.BackgroundColor = Color.White;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(6, 36);
-            dataGridView1.Margin = new Padding(3, 4, 3, 4);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(929, 795);
-            dataGridView1.TabIndex = 3;
+            dgvSettlements.Anchor = AnchorStyles.Top;
+            dgvSettlements.BackgroundColor = Color.White;
+            dgvSettlements.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSettlements.Location = new Point(6, 36);
+            dgvSettlements.Margin = new Padding(3, 4, 3, 4);
+            dgvSettlements.Name = "dgvSettlements";
+            dgvSettlements.Size = new Size(929, 795);
+            dgvSettlements.TabIndex = 3;
+            dgvSettlements.CellDoubleClick += dgvSettlements_CellDoubleClick;
             // 
             // dgvCustomer
             // 
@@ -138,7 +139,7 @@
             Name = "Main";
             Text = "Главная";
             gpSettlements.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvSettlements).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvCustomer).EndInit();
             gpCustomer.ResumeLayout(false);
             gpCustomer.PerformLayout();
@@ -154,7 +155,7 @@
         private GroupBox gpCustomer;
         private Label label1;
         private TextBox searchClients;
-        private DataGridView dataGridView1;
+        private DataGridView dgvSettlements;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem клиентыToolStripMenuItem;
     }

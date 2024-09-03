@@ -7,7 +7,7 @@ namespace Vedy.Application.Interfaces
     {
         DbSet<User> Users { get; }
         DbSet<CustomerEntry> CustomerEntries { get; }
-        DbSet<Settlement> Statements { get; }
+        DbSet<Settlement> Settlements { get; }
         DbSet<Company> Companies { get; }
 
         Task SaveChangesAsync();

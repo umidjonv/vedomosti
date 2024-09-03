@@ -9,5 +9,6 @@ namespace Vedy.Application.Interfaces
 {
     public interface ICustomerEntryRepository : IRepository<CustomerEntry>
     {
+        public Task<List<CustomerEntry>> GetAll();    
     }
 }

@@ -1,5 +1,9 @@
-﻿namespace Vedy.Data
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Vedy.Data
 {
+    [Table("Companies")]
+
     public class Company: BaseEntity
     {
         

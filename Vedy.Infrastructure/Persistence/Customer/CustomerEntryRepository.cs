@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,13 @@ namespace Vedy.Infrastructure.Persistence.Users
         public CustomerEntryRepository(IAppDbContext context) :base(context) 
         {
         }
-        
+
+        public Task<List<CustomerEntry>> GetAll()
+        {
+            return context.CustomerEntries
+                .Include(x => x.Company)
+                .Include(x => x.Settlement)
+                .ToListAsync();
+        }
     }
 }

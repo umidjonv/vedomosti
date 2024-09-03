@@ -17,24 +17,24 @@ namespace Vedy.Services
 
         public async Task<CustomerEntryModel> Add(CustomerEntryModel company, CancellationToken cancellationToken)
         {
-            var result = await _networkClient.PostRequestAsync<CustomerEntryModel>($"{AppConsts.API_URL}company/add", company, cancellationToken);
+            var result = await _networkClient.PostRequestAsync<CustomerEntryModel>($"{AppConsts.API_URL}customerentry/add", company, cancellationToken);
             return result;
         }
         public async Task<bool> Update(CustomerEntryModel company, CancellationToken cancellationToken)
         {
-            var result = await _networkClient.PostRequestAsync<bool>($"{AppConsts.API_URL}company/update", company, cancellationToken);
+            var result = await _networkClient.PostRequestAsync<bool>($"{AppConsts.API_URL}customerentry/update", company, cancellationToken);
             return result;
         }
 
         public async Task<long> Delete(long id, CancellationToken cancellationToken)
         {
-            var result = await _networkClient.GetRequestAsync<long>($"{AppConsts.API_URL}company/delete/{id}", cancellationToken);
+            var result = await _networkClient.GetRequestAsync<long>($"{AppConsts.API_URL}customerentry/delete/{id}", cancellationToken);
             return result;
         }
 
         public async Task<CustomerEntryModel> GetById(int id, CancellationToken cancellationToken)
         {
-            var company = await _networkClient.GetRequestAsync<CustomerEntryModel>($"{AppConsts.API_URL}company/get/{id}", cancellationToken);
+            var company = await _networkClient.GetRequestAsync<CustomerEntryModel>($"{AppConsts.API_URL}customerentry/get/{id}", cancellationToken);
             return company;
         }
 
@@ -45,7 +45,7 @@ namespace Vedy.Services
 
         public async Task<List<CustomerEntryModel>?> GetList(CancellationToken cancellationToken)
         {
-            var company = await _networkClient.GetRequestAsync<List<CustomerEntryModel>?>($"{AppConsts.API_URL}company/getall", cancellationToken);
+            var company = await _networkClient.GetRequestAsync<List<CustomerEntryModel>?>($"{AppConsts.API_URL}customerentry/getall", cancellationToken);
             return company;
         }
 
