@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace Vedy.Infrastructure.Persistence
 {
     public class GenericRepository<TEntity>(IAppDbContext context) where TEntity : BaseEntity
     {
+        internal readonly IAppDbContext context = context;
+
         public async Task<TEntity> AddAsync(TEntity entity)
         {
             context.Set<TEntity>().Add(entity);
