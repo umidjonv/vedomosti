@@ -23,19 +23,22 @@ namespace Vedy.Forms
         public SettlementForm(
             ICustomerEntryService customerEntryService,
             ISettlementService settlementService,
-            CompanyForm companyForm
+            CompanyForm companyForm,
+            SettlementCreateForm settlementCreateForm
             )
         {
             InitializeComponent();
             this._customerEntryService = customerEntryService;
             this._settlementService = settlementService;
             _companyForm = companyForm;
+            this._settlementCreateForm = settlementCreateForm;
             _companyModel = new();
         }
 
         private readonly ICustomerEntryService _customerEntryService;
         private readonly ISettlementService _settlementService;
         private readonly CompanyForm _companyForm;
+        private readonly SettlementCreateForm _settlementCreateForm;
         private CompanyModel _companyModel;
         private CustomerEntryModel _selectedEntry;
         private List<CustomerEntryModel> _customerEntryList = new();
@@ -44,8 +47,8 @@ namespace Vedy.Forms
         private async Task DgvUpdate()
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource();
-            _customerEntryList = await _customerEntryService.GetList(tokenSource.Token);
-            dgvSettlement.DataSource = _customerEntryList;
+            //_customerEntryList = await _customerEntryService.GetList(tokenSource.Token);
+            dgvSettlement.DataSource = _settlementModel.CustomerEntries;
             dgvSettlement.Update();
             dgvSettlement.Refresh();
         }
@@ -154,11 +157,23 @@ namespace Vedy.Forms
 
         private async void SettlementForm_Shown(object sender, EventArgs e)
         {
-            if (SettlementData.CurrentSettlementId > 0)
-                _settlementModel = await _settlementService.GetById(SettlementData.CurrentSettlementId, TokenExtension.GetToken());
+            if (SettlementData.CurrentSettlementId <= 0)
+            {
+                if (_settlementCreateForm.ShowDialog() == DialogResult.OK)
+                {
+                    var newSettlement = await _settlementService.Add(new SettlementModel
+                    {
+                        Number = _settlementCreateForm.GetName(),
+                        Date = DateTimeOffset.Now.ToUniversalTime(),
+                    }, TokenExtension.GetToken());
+                    SettlementData.CurrentSettlementId = newSettlement.Id.Value;
+                }
+            }
+            _settlementModel = await _settlementService.GetById(SettlementData.CurrentSettlementId, TokenExtension.GetToken());
+
             if (_settlementModel != null)
             {
-                _customerEntryList = _settlementModel.CustomerEntries ?? new List<CustomerEntryModel>();
+                //_customerEntryList = _settlementModel.CustomerEntries ?? new List<CustomerEntryModel>();
                 await DgvUpdate();
             }
             ClearEntry();
@@ -168,10 +183,11 @@ namespace Vedy.Forms
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
+            SettlementData.CurrentSettlementId = 0;
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
             if (_selectedEntry.Id == null)
             {
@@ -181,6 +197,7 @@ namespace Vedy.Forms
                 btnUpdate_Click(sender, e);
             }
             ClearEntry();
+            await DgvUpdate();
         }
 
         private void settlementAmount_KeyPress(object sender, KeyPressEventArgs e)

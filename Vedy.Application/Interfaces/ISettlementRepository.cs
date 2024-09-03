@@ -4,6 +4,6 @@ namespace Vedy.Application.Interfaces
 {
     public interface ISettlementRepository : IRepository<Settlement>
     {
-        public Task<Settlement?> GetById();    
+        public Task<Settlement?> GetById(long id);    
     }
 }

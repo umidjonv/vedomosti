@@ -28,12 +28,13 @@ namespace Vedy
             builder.RegisterType<Main>();
             builder.RegisterType<CompanyForm>();
             builder.RegisterType<SettlementForm>();
+            builder.RegisterType<SettlementCreateForm>();
             Container = builder.Build();
 
             using (var scope = Container.BeginLifetimeScope())
             {
                 ApplicationConfiguration.Initialize();
-                var form = scope.Resolve<SettlementForm>();
+                var form = scope.Resolve<Main>();
                 Application.Run(form);
             }
         }

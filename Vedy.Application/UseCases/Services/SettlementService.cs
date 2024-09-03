@@ -36,7 +36,7 @@ namespace Vedy.Infrastructure.Services
 
         public async Task<SettlementModel> GetById(long id)
         {
-            var settlement = await _settlementRepository.GetById();
+            var settlement = await _settlementRepository.GetById(id);
             var model = new SettlementModel
             {
                 Id = settlement.Id,
@@ -84,11 +84,11 @@ namespace Vedy.Infrastructure.Services
 
             return new SettlementModel
             {
-                UserId = model.UserId,
-                Date = model.Date,
-                Number = model.Number,
-                CustomerEntries = model.CustomerEntries,
-                Id = model.Id
+                UserId = result.UserId,
+                Date = result.Date,
+                Number = result.Number,
+                CustomerEntries = new List<CustomerEntryModel>(),
+                Id = result.Id
             };
         }
 
