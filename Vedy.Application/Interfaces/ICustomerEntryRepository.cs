@@ -7,7 +7,8 @@ using Vedy.Data;
 
 namespace Vedy.Application.Interfaces
 {
-    public interface ICustomerRepository : IRepository<Customer>
+    public interface ICustomerEntryRepository : IRepository<CustomerEntry>
     {
+        public Task<List<CustomerEntry>> GetAll();    
     }
 }

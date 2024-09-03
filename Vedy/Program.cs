@@ -22,6 +22,8 @@ namespace Vedy
             // via its interface:
             builder.RegisterType<NetworkClient>().As<INetworkClient>();
             builder.RegisterType<CompanyService>().As<ICompanyService>();
+            builder.RegisterType<CustomerEntryService>().As<ICustomerEntryService>();
+            builder.RegisterType<SettlementService>().As<ISettlementService>();
 
             builder.RegisterType<Main>();
             builder.RegisterType<CompanyForm>();

@@ -29,21 +29,24 @@
         private void InitializeComponent()
         {
             gpSettlement = new GroupBox();
+            settlementAmount = new TextBox();
+            label5 = new Label();
+            btnClear = new Button();
             btnClose = new Button();
             pictureBox1 = new PictureBox();
-            textBox3 = new TextBox();
+            settlementCar = new TextBox();
             label3 = new Label();
-            textBox2 = new TextBox();
+            settlementFullname = new TextBox();
             label2 = new Label();
             btnSelectCompany = new Button();
-            textBox1 = new TextBox();
+            settlementCompanyStr = new TextBox();
             label1 = new Label();
             btnSave = new Button();
             label4 = new Label();
             settlementNumber = new Label();
-            label5 = new Label();
             label6 = new Label();
             dgvSettlement = new DataGridView();
+            settlementDate = new DateTimePicker();
             gpSettlement.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvSettlement).BeginInit();
@@ -52,14 +55,17 @@
             // gpSettlement
             // 
             gpSettlement.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            gpSettlement.Controls.Add(settlementAmount);
+            gpSettlement.Controls.Add(label5);
+            gpSettlement.Controls.Add(btnClear);
             gpSettlement.Controls.Add(btnClose);
             gpSettlement.Controls.Add(pictureBox1);
-            gpSettlement.Controls.Add(textBox3);
+            gpSettlement.Controls.Add(settlementCar);
             gpSettlement.Controls.Add(label3);
-            gpSettlement.Controls.Add(textBox2);
+            gpSettlement.Controls.Add(settlementFullname);
             gpSettlement.Controls.Add(label2);
             gpSettlement.Controls.Add(btnSelectCompany);
-            gpSettlement.Controls.Add(textBox1);
+            gpSettlement.Controls.Add(settlementCompanyStr);
             gpSettlement.Controls.Add(label1);
             gpSettlement.Controls.Add(btnSave);
             gpSettlement.Location = new Point(0, 143);
@@ -71,6 +77,33 @@
             gpSettlement.TabStop = false;
             gpSettlement.Text = "Регистрация Авто";
             // 
+            // settlementAmount
+            // 
+            settlementAmount.Location = new Point(96, 203);
+            settlementAmount.Name = "settlementAmount";
+            settlementAmount.Size = new Size(240, 27);
+            settlementAmount.TabIndex = 12;
+            settlementAmount.KeyPress += settlementAmount_KeyPress;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(13, 206);
+            label5.Name = "label5";
+            label5.Size = new Size(77, 20);
+            label5.TabIndex = 11;
+            label5.Text = "Кубометр";
+            // 
+            // btnClear
+            // 
+            btnClear.Location = new Point(231, 405);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(105, 44);
+            btnClear.TabIndex = 10;
+            btnClear.Text = "Очистить";
+            btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
+            // 
             // btnClose
             // 
             btnClose.Location = new Point(231, 558);
@@ -79,42 +112,43 @@
             btnClose.TabIndex = 10;
             btnClose.Text = "Закрыть";
             btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(6, 310);
+            pictureBox1.Location = new Point(6, 236);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(330, 224);
+            pictureBox1.Size = new Size(330, 150);
             pictureBox1.TabIndex = 9;
             pictureBox1.TabStop = false;
             // 
-            // textBox3
+            // settlementCar
             // 
-            textBox3.Location = new Point(113, 207);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(223, 27);
-            textBox3.TabIndex = 7;
+            settlementCar.Location = new Point(96, 155);
+            settlementCar.Name = "settlementCar";
+            settlementCar.Size = new Size(240, 27);
+            settlementCar.TabIndex = 7;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(6, 207);
+            label3.Location = new Point(27, 158);
             label3.Name = "label3";
-            label3.Size = new Size(42, 20);
+            label3.Size = new Size(63, 20);
             label3.TabIndex = 6;
-            label3.Text = "Авто";
+            label3.Text = "№ Авто";
             // 
-            // textBox2
+            // settlementFullname
             // 
-            textBox2.Location = new Point(119, 136);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(223, 27);
-            textBox2.TabIndex = 5;
+            settlementFullname.Location = new Point(96, 104);
+            settlementFullname.Name = "settlementFullname";
+            settlementFullname.Size = new Size(240, 27);
+            settlementFullname.TabIndex = 5;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(6, 136);
+            label2.Location = new Point(32, 107);
             label2.Name = "label2";
             label2.Size = new Size(58, 20);
             label2.TabIndex = 4;
@@ -122,25 +156,25 @@
             // 
             // btnSelectCompany
             // 
-            btnSelectCompany.Location = new Point(245, 87);
+            btnSelectCompany.Location = new Point(253, 53);
             btnSelectCompany.Name = "btnSelectCompany";
-            btnSelectCompany.Size = new Size(91, 29);
+            btnSelectCompany.Size = new Size(89, 29);
             btnSelectCompany.TabIndex = 3;
             btnSelectCompany.Text = "Выбрать";
             btnSelectCompany.UseVisualStyleBackColor = true;
-            btnSelectCompany.Click += btnSelectCompany_Click;
+            btnSelectCompany.Click += btnSelect_Click;
             // 
-            // textBox1
+            // settlementCompanyStr
             // 
-            textBox1.Location = new Point(113, 54);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(223, 27);
-            textBox1.TabIndex = 2;
+            settlementCompanyStr.Location = new Point(96, 54);
+            settlementCompanyStr.Name = "settlementCompanyStr";
+            settlementCompanyStr.Size = new Size(151, 27);
+            settlementCompanyStr.TabIndex = 2;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(6, 57);
+            label1.Location = new Point(7, 57);
             label1.Name = "label1";
             label1.Size = new Size(81, 20);
             label1.TabIndex = 1;
@@ -148,12 +182,13 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(101, 558);
+            btnSave.Location = new Point(120, 405);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(105, 44);
             btnSave.TabIndex = 0;
             btnSave.Text = "Сохранить";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // label4
             // 
@@ -167,25 +202,16 @@
             // settlementNumber
             // 
             settlementNumber.AutoSize = true;
-            settlementNumber.Location = new Point(127, 26);
+            settlementNumber.Location = new Point(125, 23);
             settlementNumber.Name = "settlementNumber";
             settlementNumber.Size = new Size(57, 20);
             settlementNumber.TabIndex = 8;
             settlementNumber.Text = "123456";
             // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Location = new Point(127, 6);
-            label5.Name = "label5";
-            label5.Size = new Size(79, 20);
-            label5.TabIndex = 9;
-            label5.Text = "02.02.2024";
-            // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(76, 3);
+            label6.Location = new Point(75, 55);
             label6.Name = "label6";
             label6.Size = new Size(44, 20);
             label6.TabIndex = 10;
@@ -199,13 +225,20 @@
             dgvSettlement.Size = new Size(765, 742);
             dgvSettlement.TabIndex = 11;
             // 
+            // settlementDate
+            // 
+            settlementDate.Location = new Point(125, 55);
+            settlementDate.Name = "settlementDate";
+            settlementDate.Size = new Size(200, 27);
+            settlementDate.TabIndex = 12;
+            // 
             // SettlementForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1125, 757);
+            Controls.Add(settlementDate);
             Controls.Add(dgvSettlement);
-            Controls.Add(label5);
             Controls.Add(label6);
             Controls.Add(gpSettlement);
             Controls.Add(settlementNumber);
@@ -214,7 +247,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "SettlementForm";
             Text = "Ведомость";
-            Load += SettlementForm_Load;
+            Shown += SettlementForm_Shown;
             gpSettlement.ResumeLayout(false);
             gpSettlement.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -227,19 +260,22 @@
 
         private GroupBox gpSettlement;
         private Button btnSelectCompany;
-        private TextBox textBox1;
+        private TextBox settlementCompanyStr;
         private Label label1;
         private Button btnSave;
-        private TextBox textBox2;
+        private TextBox settlementFullname;
         private Label label2;
-        private TextBox textBox3;
+        private TextBox settlementCar;
         private Label label3;
         private PictureBox pictureBox1;
         private Label settlementNumber;
         private Label label4;
-        private Label label5;
         private Label label6;
         private DataGridView dgvSettlement;
         private Button btnClose;
+        private Button btnClear;
+        private DateTimePicker settlementDate;
+        private Label label5;
+        private TextBox settlementAmount;
     }
 }

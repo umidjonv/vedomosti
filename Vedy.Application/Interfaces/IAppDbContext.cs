@@ -6,8 +6,8 @@ namespace Vedy.Application.Interfaces
     public interface IAppDbContext
     {
         DbSet<User> Users { get; }
-        DbSet<Customer> Customers { get; }
-        DbSet<Statement> Statements { get; }
+        DbSet<CustomerEntry> CustomerEntries { get; }
+        DbSet<Settlement> Settlements { get; }
         DbSet<Company> Companies { get; }
 
         Task SaveChangesAsync();

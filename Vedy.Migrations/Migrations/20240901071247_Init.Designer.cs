@@ -12,8 +12,8 @@ using Vedy.Infrastructure.Persistence;
 namespace Vedy.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240825121036_NewCompanyChange")]
-    partial class NewCompanyChange
+    [Migration("20240901071247_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,40 +49,7 @@ namespace Vedy.Migrations.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("Vedy.Data.Customer", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("CarNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<long?>("CompanyId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("SignHash")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("Vedy.Data.Statement", b =>
+            modelBuilder.Entity("Vedy.Data.CustomerEntry", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -93,21 +60,61 @@ namespace Vedy.Migrations.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
 
+                    b.Property<string>("CarNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<long?>("CompanyId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("CustomerId")
-                        .HasColumnType("bigint");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<long>("SettlementId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SignHash")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("SettlementId");
+
+                    b.ToTable("CustomerEntries");
+                });
+
+            modelBuilder.Entity("Vedy.Data.Settlement", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.HasIndex("UserId");
 
@@ -137,42 +144,42 @@ namespace Vedy.Migrations.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Vedy.Data.Customer", b =>
+            modelBuilder.Entity("Vedy.Data.CustomerEntry", b =>
                 {
                     b.HasOne("Vedy.Data.Company", "Company")
-                        .WithMany("Customers")
+                        .WithMany("CustomerEntries")
                         .HasForeignKey("CompanyId");
 
-                    b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("Vedy.Data.Statement", b =>
-                {
-                    b.HasOne("Vedy.Data.Customer", "Customer")
-                        .WithMany("Statements")
-                        .HasForeignKey("CustomerId")
+                    b.HasOne("Vedy.Data.Settlement", "Settlement")
+                        .WithMany("CustomerEntries")
+                        .HasForeignKey("SettlementId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Company");
+
+                    b.Navigation("Settlement");
+                });
+
+            modelBuilder.Entity("Vedy.Data.Settlement", b =>
+                {
                     b.HasOne("Vedy.Data.User", "User")
                         .WithMany("Statements")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Customer");
-
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("Vedy.Data.Company", b =>
                 {
-                    b.Navigation("Customers");
+                    b.Navigation("CustomerEntries");
                 });
 
-            modelBuilder.Entity("Vedy.Data.Customer", b =>
+            modelBuilder.Entity("Vedy.Data.Settlement", b =>
                 {
-                    b.Navigation("Statements");
+                    b.Navigation("CustomerEntries");
                 });
 
             modelBuilder.Entity("Vedy.Data.User", b =>

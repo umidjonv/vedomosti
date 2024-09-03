@@ -14,6 +14,8 @@ namespace Vedy.Application
         {
             services.AddTransient<UserService>();
             services.AddTransient<CompanyService>();
+            services.AddTransient<CustomerEntryService>();
+            services.AddTransient<SettlementService>();
             return services;
         }
 

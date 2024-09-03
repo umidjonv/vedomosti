@@ -7,10 +7,10 @@ namespace Vedy.Infrastructure.Services
 {
     public class CompanyService
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerEntryRepository _customerRepository;
         private readonly ICompanyRepository _companyRepository;
 
-        public CompanyService(ICustomerRepository customerRepository,
+        public CompanyService(ICustomerEntryRepository customerRepository,
                             ICompanyRepository companyRepository) 
         {
             this._customerRepository = customerRepository;

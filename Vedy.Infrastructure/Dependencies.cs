@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 using Vedy.Application.Interfaces;
 using Vedy.Infrastructure.Persistence;
+using Vedy.Infrastructure.Persistence.Settlements;
 using Vedy.Infrastructure.Persistence.Users;
 namespace Vedy.Infrastructure
 {
@@ -12,6 +13,7 @@ namespace Vedy.Infrastructure
 
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration) 
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false);
             var section = configuration.GetSection("ConnectionStrings");
             services.AddDbContext<IAppDbContext, AppDbContext>((options) =>
             {
@@ -21,7 +23,8 @@ namespace Vedy.Infrastructure
 
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<ICompanyRepository, CompanyRepository>();
-            services.AddTransient<ICustomerRepository, CustomerRepository>();
+            services.AddTransient<ICustomerEntryRepository, CustomerEntryRepository>();
+            services.AddTransient<ISettlementRepository, SettlementRepository>();
             return services;
         }
 
