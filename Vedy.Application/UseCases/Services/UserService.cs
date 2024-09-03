@@ -1,4 +1,6 @@
-﻿using Vedy.Application.Interfaces;
+﻿using System.Security.Cryptography;
+using Vedy.Application.Extensions;
+using Vedy.Application.Interfaces;
 using Vedy.Common.DTOs.User;
 using Vedy.Data;
 
@@ -18,7 +20,8 @@ namespace Vedy.Infrastructure.Services
             var entity = await _userRepository.AddAsync(new User 
             {
                 FullName = user.FullName,
-                Role = user.Role
+                Role = user.Role,
+                Password = user.Password//HashingExtension.HashPasword(user.Password)
             });
             if (entity == null)
             {
