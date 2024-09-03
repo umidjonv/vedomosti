@@ -12,5 +12,9 @@ namespace Vedy.Data
         public UserRole Role { get; set; } 
 
         public virtual IEnumerable<Settlement> Settlements { get; set; }
+        public string Login {  get; set; }
+
+        public string Password { get; set; }
+
     }
 }
