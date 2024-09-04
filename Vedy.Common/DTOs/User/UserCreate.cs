@@ -10,7 +10,8 @@ namespace Vedy.Common.DTOs.User
     public class UserCreate
     {
         public string FullName { get; set; }
-
+        public string Login {  get; set; } 
         public UserRole Role { get; set; }
+        public string Password { get; set; }
     }
 }
