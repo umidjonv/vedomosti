@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel;
 using Vedy.Common.DTOs.CustomerEntry;
 
 namespace Vedy.Common.DTOs.Settlement
@@ -7,8 +8,10 @@ namespace Vedy.Common.DTOs.Settlement
     {
         public long? Id { get; set; }
 
+        [DisplayName("Номер ведомости")]
         public string Number { get; set; }
 
+        [DisplayName("Номер ведомости")]
         public DateTimeOffset Date { get; set; }
 
         public List<CustomerEntryModel>? CustomerEntries { get; set; }
