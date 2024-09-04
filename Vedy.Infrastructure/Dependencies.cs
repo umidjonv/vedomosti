@@ -17,7 +17,7 @@ namespace Vedy.Infrastructure
             var section = configuration.GetSection("ConnectionStrings");
             services.AddDbContext<IAppDbContext, AppDbContext>((options) =>
             {
-                options.UseNpgsql("Host=localhost;Database=VedyDb;Username=postgres;Password=123456");
+                options.UseNpgsql(section.GetSection("DefaultConnection").Value);
             });
 
 
