@@ -30,6 +30,7 @@
         {
             dgvCompany = new DataGridView();
             gpSettlement = new GroupBox();
+            btnSelect = new Button();
             button1 = new Button();
             btnClear = new Button();
             btnDelete = new Button();
@@ -40,7 +41,6 @@
             tbxName = new TextBox();
             label1 = new Label();
             btnSave = new Button();
-            btnSelect = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvCompany).BeginInit();
             gpSettlement.SuspendLayout();
             SuspendLayout();
@@ -53,12 +53,14 @@
             dgvCompany.AllowUserToResizeColumns = false;
             dgvCompany.AllowUserToResizeRows = false;
             dgvCompany.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvCompany.BackgroundColor = Color.White;
             dgvCompany.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCompany.Location = new Point(5, 115);
             dgvCompany.Name = "dgvCompany";
             dgvCompany.Size = new Size(617, 333);
             dgvCompany.TabIndex = 12;
             dgvCompany.CellClick += dgvCompany_CellClick;
+            dgvCompany.CellDoubleClick += dgvCompany_CellDoubleClick;
             // 
             // gpSettlement
             // 
@@ -82,6 +84,16 @@
             gpSettlement.TabIndex = 13;
             gpSettlement.TabStop = false;
             gpSettlement.Text = "Компания ";
+            // 
+            // btnSelect
+            // 
+            btnSelect.Location = new Point(324, 30);
+            btnSelect.Name = "btnSelect";
+            btnSelect.Size = new Size(188, 29);
+            btnSelect.TabIndex = 15;
+            btnSelect.Text = "Выбрать";
+            btnSelect.UseVisualStyleBackColor = true;
+            btnSelect.Click += btnSelect_Click;
             // 
             // button1
             // 
@@ -172,16 +184,6 @@
             btnSave.TabIndex = 0;
             btnSave.Text = "Сохранить";
             btnSave.UseVisualStyleBackColor = true;
-            // 
-            // btnSelect
-            // 
-            btnSelect.Location = new Point(324, 30);
-            btnSelect.Name = "btnSelect";
-            btnSelect.Size = new Size(188, 29);
-            btnSelect.TabIndex = 15;
-            btnSelect.Text = "Очистить";
-            btnSelect.UseVisualStyleBackColor = true;
-            btnSelect.Click += btnSelect_Click;
             // 
             // CompanyForm
             // 

@@ -33,6 +33,8 @@ namespace Vedy.Forms
             _companyForm = companyForm;
             this._settlementCreateForm = settlementCreateForm;
             _companyModel = new();
+
+            
         }
 
         private readonly ICustomerEntryService _customerEntryService;
@@ -47,8 +49,13 @@ namespace Vedy.Forms
         private async Task DgvUpdate()
         {
             CancellationTokenSource tokenSource = new CancellationTokenSource();
-            //_customerEntryList = await _customerEntryService.GetList(tokenSource.Token);
+            _settlementModel = await _settlementService.GetById(_settlementModel.Id.Value,tokenSource.Token);
             dgvSettlement.DataSource = _settlementModel.CustomerEntries;
+
+            if (dgvSettlement.DataSource != null)
+            {
+                dgvSettlement.SetSettings();
+            }
             dgvSettlement.Update();
             dgvSettlement.Refresh();
         }
@@ -81,6 +88,7 @@ namespace Vedy.Forms
             {
                 _selectedEntry = new CustomerEntryModel() 
                 {
+                    Id = _selectedEntry.Id,
                     SettlementNumber = settlementNumber.Text,
                     SettlementDate = DateTime.Parse(settlementDate.Text),
                     CompanyName = settlementCompanyStr.Text,
@@ -98,7 +106,7 @@ namespace Vedy.Forms
             
         }
 
-        private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
             {
@@ -107,10 +115,10 @@ namespace Vedy.Forms
 
             var value = (long)dgvSettlement.Rows[e.RowIndex].Cells["Id"].Value;
 
-            _selectedEntry = _customerEntryList.FirstOrDefault(x => x.Id != null && x.Id == value);
+            _selectedEntry = _settlementModel.CustomerEntries.FirstOrDefault(x => x.Id != null && x.Id == value);
 
             SetEntry();
-
+            //await DgvUpdate();
         }
 
         private async void btnAdd_Click(object sender, EventArgs e)
@@ -149,9 +157,12 @@ namespace Vedy.Forms
             if (_companyForm.ShowDialog() == DialogResult.OK)
             {
                 var result = _companyForm.GetResult();
+                //_selectedEntry = new CustomerEntryModel();
                 _selectedEntry.CompanyId = result.Id;
                 _selectedEntry.CompanyName = result.Name;
+                
                 SetEntry();
+                
             }
         }
 
@@ -189,15 +200,18 @@ namespace Vedy.Forms
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
-            if (_selectedEntry.Id == null)
+            if (MessageBox.Show("Сохранить?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                btnAdd_Click(sender, e);
-            }else 
-            {
-                btnUpdate_Click(sender, e);
+                if (_selectedEntry.Id == null)
+                {
+                    btnAdd_Click(sender, e);
+                }
+                else
+                {
+                    btnUpdate_Click(sender, e);
+                }
+                await DgvUpdate();
             }
-            ClearEntry();
-            await DgvUpdate();
         }
 
         private void settlementAmount_KeyPress(object sender, KeyPressEventArgs e)

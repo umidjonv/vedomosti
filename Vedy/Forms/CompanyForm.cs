@@ -41,11 +41,7 @@ namespace Vedy.Forms
 
         private async void CompanyForm_Load(object sender, EventArgs e)
         {
-            DgvUpdate();
-            //if (tbxName.DataBindings.Count == 0)
-            //    tbxName.DataBindings.Add("Text", _viewModel, "Name", false, DataSourceUpdateMode.OnPropertyChanged);
-            //if (tbxTin.DataBindings.Count == 0)
-            //    tbxTin.DataBindings.Add("Text", _viewModel, "Tin", false, DataSourceUpdateMode.OnPropertyChanged);
+            await DgvUpdate();
 
         }
 
@@ -112,6 +108,12 @@ namespace Vedy.Forms
         public CompanyModel GetResult()
         {
             return _selectedCompany;
+        }
+
+        private void dgvCompany_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }

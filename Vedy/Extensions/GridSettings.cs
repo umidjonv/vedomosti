@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Vedy.Common.DTOs.Company;
 using Vedy.Common.DTOs.CustomerEntry;
 using Vedy.Common.DTOs.Settlement;
 
@@ -13,30 +8,35 @@ namespace Vedy.Extensions
 {
     public static class GridSettings
     {
-        public static void SetSettings(DataGridView dataGridView)
+        public static void SetSettings(this DataGridView dataGridView)
         {
             if (dataGridView.DataSource != null)
             {
                 switch (dataGridView.Name)
                 {
                     case "dgvSettlement":
-                        dataGridView.Columns[nameof(CustomerEntryModel.CompanyName)].HeaderText = GetDisplayName<SettlementModel>(nameof(CustomerEntryModel.CompanyName)) ;
-                        dataGridView.Columns[nameof(CustomerEntryModel.FullName)].HeaderText = GetDisplayName<SettlementModel>(nameof(CustomerEntryModel.FullName)) ;
-                        dataGridView.Columns[nameof(CustomerEntryModel.CarNumber)].HeaderText = GetDisplayName<SettlementModel>(nameof(CustomerEntryModel.CarNumber)) ;
-                        dataGridView.Columns[nameof(CustomerEntryModel.Amount)].HeaderText = GetDisplayName<SettlementModel>(nameof(CustomerEntryModel.Amount)) ;
-                        dataGridView.Columns[nameof(CustomerEntryModel.Id)].HeaderText = GetDisplayName<SettlementModel>(nameof(CustomerEntryModel.Id)) ;
-                        dataGridView.Columns[nameof(CustomerEntryModel.CreatedDate)].HeaderText = GetDisplayName<SettlementModel>(nameof(CustomerEntryModel.CreatedDate)) ;
-                        dataGridView.Columns[nameof(CustomerEntryModel.SettlementDate)].HeaderText = GetDisplayName<SettlementModel>(nameof(CustomerEntryModel.SettlementDate)) ;
+                        dataGridView.Columns[nameof(CustomerEntryModel.SettlementDate)].Visible = false;
+                        dataGridView.Columns[nameof(CustomerEntryModel.CompanyId)].Visible = false;
+                        dataGridView.Columns[nameof(CustomerEntryModel.SettlementId)].Visible = false;
+                        dataGridView.Columns[nameof(CustomerEntryModel.SignHash)].Visible = false;
                         
                         break;
+                    case "dgvSettlements":
+                        dataGridView.Columns[nameof(SettlementModel.UserId)].Visible = false;
+                        break;
+                    case "dgvCompany":
+                        break;
                 }
+                dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;
+                dataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             }
         }
 
         private static string GetDisplayName<T>(string propertyName)
         {
             Type type = typeof(T);
-
+            
             // Получаем свойство "Name"
             PropertyInfo property = type.GetProperty(propertyName);
 

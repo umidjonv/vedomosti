@@ -90,14 +90,23 @@ namespace Vedy.Services
 
         public T DeserializeResponse<T>(string responseString)
         {
-            var responseModel = JsonConvert.DeserializeObject<BaseResponse<T>>(responseString);
-
-            if (responseModel == null || !responseModel.IsSuccess)
+            var response = JsonConvert.DeserializeObject<BaseResponse>(responseString);
+            
+            if (response.IsSuccess)
             {
-                throw new Exception("Cannot parsing returned model");
+                var responseModel = JsonConvert.DeserializeObject<BaseResponse<T>>(responseString);
+
+                if (responseModel == null || !responseModel.IsSuccess)
+                {
+                    throw new Exception("Cannot parsing returned model");
+                }
+
+                return responseModel.Data;
+
             }
 
-            return responseModel.Data;
+            throw new Exception(response.Error.Message);
+
         }
 
     }

@@ -77,11 +77,17 @@ namespace Vedy.Infrastructure.Services
 
         public async Task Update(CustomerEntryModel entry)
         {
+            if (entry.Id == null)
+            {
+                throw new Exception("Id not found");
+            }
+
             await _customerRepository.UpdateAsync(new CustomerEntry
             {
+                Id = entry.Id.Value,
                 FullName = entry.FullName,
                 CompanyId = entry.CompanyId,
-                CreatedDate = entry.CreatedDate,
+                CreatedDate = entry.CreatedDate.ToUniversalTime(),
                 Amount = entry.Amount,
                 CarNumber = entry.CarNumber,
                 SettlementId = entry.SettlementId,

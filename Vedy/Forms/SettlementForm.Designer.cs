@@ -219,11 +219,13 @@
             // 
             // dgvSettlement
             // 
+            dgvSettlement.BackgroundColor = Color.White;
             dgvSettlement.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSettlement.Location = new Point(348, 3);
             dgvSettlement.Name = "dgvSettlement";
             dgvSettlement.Size = new Size(765, 742);
             dgvSettlement.TabIndex = 11;
+            dgvSettlement.CellClick += dgv_CellClick;
             // 
             // settlementDate
             // 
