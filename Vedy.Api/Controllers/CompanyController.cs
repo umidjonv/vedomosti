@@ -11,7 +11,7 @@ namespace Vedy.Api.Controllers
         private readonly CompanyService _companyService = customerCompanyService;
         
         [HttpPost]
-        [ProducesResponseType(200, Type= typeof(UserResult))]
+        [ProducesResponseType(200, Type= typeof(CompanyModel))]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyModel company)
         {
             try

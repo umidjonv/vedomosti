@@ -47,5 +47,24 @@ namespace Vedy.Api.Controllers
             }
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Login([FromBody]LoginModel loginModel)
+        {
+            try
+            {
+                if (loginModel == null)
+                {
+                    throw new ArgumentException();
+                }
+                var result = await _userService.Login(loginModel);
+
+                return Success(result);
+            }
+            catch (Exception ex)
+            {
+                return Bad(ex.Message);
+            }
+        }
+
     }
 }

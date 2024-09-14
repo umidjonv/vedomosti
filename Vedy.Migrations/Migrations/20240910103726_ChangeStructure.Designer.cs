@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Vedy.Infrastructure.Persistence;
@@ -11,9 +12,11 @@ using Vedy.Infrastructure.Persistence;
 namespace Vedy.Migrations.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240910103726_ChangeStructure")]
+    partial class ChangeStructure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,7 +46,7 @@ namespace Vedy.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("Vedy.Data.CustomerEntry", b =>
@@ -87,7 +90,7 @@ namespace Vedy.Migrations.Migrations
 
                     b.HasIndex("SettlementId");
 
-                    b.ToTable("CustomerEntries", (string)null);
+                    b.ToTable("CustomerEntries");
                 });
 
             modelBuilder.Entity("Vedy.Data.Settlement", b =>
@@ -115,7 +118,7 @@ namespace Vedy.Migrations.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Settlements", (string)null);
+                    b.ToTable("Settlements");
                 });
 
             modelBuilder.Entity("Vedy.Data.User", b =>
@@ -146,7 +149,7 @@ namespace Vedy.Migrations.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Vedy.Data.CustomerEntry", b =>

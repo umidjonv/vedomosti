@@ -9,5 +9,6 @@ namespace Vedy.Application.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {
+        Task<User?> GetByUserName(string username);
     }
 }

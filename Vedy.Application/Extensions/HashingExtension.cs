@@ -11,14 +11,13 @@ namespace Vedy.Application.Extensions
     {
         const int keySize = 64;
         const int iterations = 350000;
-        const string salt = "password";
-
-        public static string HashPasword(string password, out byte[] salt)
+        const string Salt = "FocusOnYourPurposeItWillBeGreat";
+        public static string HashPasword(string password)
         {
             
 
             HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
-            salt = RandomNumberGenerator.GetBytes(keySize);
+            var salt = Encoding.ASCII.GetBytes(HashingExtension.Salt);
 
             var hash = Rfc2898DeriveBytes.Pbkdf2(
                 Encoding.UTF8.GetBytes(password),
@@ -29,8 +28,9 @@ namespace Vedy.Application.Extensions
 
             return Convert.ToHexString(hash);
         }
-        public static bool VerifyPassword(string password, string hash, byte[] salt)
+        public static bool VerifyPassword(string password, string hash)
         {
+            var salt = Encoding.ASCII.GetBytes(HashingExtension.Salt);
             HashAlgorithmName hashAlgorithm = HashAlgorithmName.SHA512;
             var hashToCompare = Rfc2898DeriveBytes.Pbkdf2(password, salt, iterations, hashAlgorithm, keySize);
             return CryptographicOperations.FixedTimeEquals(hashToCompare, Convert.FromHexString(hash));

@@ -28,24 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
             btnCreate = new Button();
-            tbxName = new TextBox();
+            lblDateRange = new Label();
+            dgvCustomerEntries = new DataGridView();
+            btnSelect = new Button();
+            cmbMonth = new ComboBox();
+            label1 = new Label();
+            ((System.ComponentModel.ISupportInitialize)dgvCustomerEntries).BeginInit();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(98, 60);
-            label1.Margin = new Padding(4, 0, 4, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(142, 21);
-            label1.TabIndex = 0;
-            label1.Text = "Номер ведомости:";
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(98, 154);
+            btnCreate.Location = new Point(317, 511);
             btnCreate.Margin = new Padding(4);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(195, 32);
@@ -54,36 +48,87 @@
             btnCreate.UseVisualStyleBackColor = true;
             btnCreate.Click += btnCreate_Click;
             // 
-            // tbxName
+            // lblDateRange
             // 
-            tbxName.Location = new Point(98, 85);
-            tbxName.Margin = new Padding(4);
-            tbxName.Name = "tbxName";
-            tbxName.Size = new Size(195, 29);
-            tbxName.TabIndex = 2;
+            lblDateRange.AutoSize = true;
+            lblDateRange.Location = new Point(4, 54);
+            lblDateRange.Name = "lblDateRange";
+            lblDateRange.Size = new Size(68, 21);
+            lblDateRange.TabIndex = 4;
+            lblDateRange.Text = "Период:";
+            // 
+            // dgvCustomerEntries
+            // 
+            dgvCustomerEntries.Anchor = AnchorStyles.Top;
+            dgvCustomerEntries.BackgroundColor = Color.White;
+            dgvCustomerEntries.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCustomerEntries.Location = new Point(4, 84);
+            dgvCustomerEntries.Margin = new Padding(4, 5, 4, 5);
+            dgvCustomerEntries.Name = "dgvCustomerEntries";
+            dgvCustomerEntries.Size = new Size(508, 418);
+            dgvCustomerEntries.TabIndex = 6;
+            // 
+            // btnSelect
+            // 
+            btnSelect.Location = new Point(262, 13);
+            btnSelect.Margin = new Padding(4);
+            btnSelect.Name = "btnSelect";
+            btnSelect.Size = new Size(106, 29);
+            btnSelect.TabIndex = 7;
+            btnSelect.Text = "Выбрать";
+            btnSelect.UseVisualStyleBackColor = true;
+            btnSelect.Click += btnSelect_Click;
+            // 
+            // cmbMonth
+            // 
+            cmbMonth.FormattingEnabled = true;
+            cmbMonth.Location = new Point(79, 13);
+            cmbMonth.Name = "cmbMonth";
+            cmbMonth.Size = new Size(176, 29);
+            cmbMonth.TabIndex = 8;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(5, 13);
+            label1.Name = "label1";
+            label1.Size = new Size(60, 21);
+            label1.TabIndex = 9;
+            label1.Text = "Месяц:";
             // 
             // SettlementCreateForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(402, 258);
-            Controls.Add(tbxName);
-            Controls.Add(btnCreate);
+            ClientSize = new Size(516, 551);
             Controls.Add(label1);
+            Controls.Add(cmbMonth);
+            Controls.Add(btnSelect);
+            Controls.Add(dgvCustomerEntries);
+            Controls.Add(lblDateRange);
+            Controls.Add(btnCreate);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FormBorderStyle = FormBorderStyle.None;
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Margin = new Padding(4);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "SettlementCreateForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "CustomerForm";
+            ((System.ComponentModel.ISupportInitialize)dgvCustomerEntries).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Label label1;
         private Button btnCreate;
-        private TextBox tbxName;
+        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dateTimePicker2;
+        private Label lblDateRange;
+        private DataGridView dgvCustomerEntries;
+        private Label label2;
+        private Button btnSelect;
+        private ComboBox cmbMonth;
+        private Label label1;
     }
 }

@@ -18,6 +18,32 @@ namespace Vedy.Infrastructure.Services
             this._companyRepository = companyRepository;
         }
 
+        public async Task<List<CustomerEntryModel>> GetByDate(DateRangeModel dateRange)
+        {
+            var entries = await _customerRepository.GetByDate(dateRange.StartDate, dateRange.EndDate);
+            var response = new List<CustomerEntryModel>();
+            foreach (var customerEntry in entries)
+            {
+
+                response.Add(new CustomerEntryModel
+                {
+                    Id = customerEntry.Id,
+                    CarNumber = customerEntry.CarNumber,
+                    Amount = customerEntry.Amount,
+                    CompanyId = customerEntry.CompanyId,
+                    CompanyName = customerEntry.Company.CompanyName,
+                    CreatedDate = customerEntry.CreatedDate.ToUniversalTime(),
+                    FullName = customerEntry.FullName,
+                    SettlementDate = customerEntry.Settlement.Date,
+                    SettlementId = customerEntry.SettlementId,
+                    SettlementNumber = customerEntry.Settlement.Number,
+                    SignHash = customerEntry.SignHash,
+                });
+            }
+
+            return response;
+        }
+
         public async Task<List<CustomerEntryModel>> GetAll()
         {
             var entries = await _customerRepository.GetAll();
@@ -38,7 +64,6 @@ namespace Vedy.Infrastructure.Services
                     SettlementId = customerEntry.SettlementId,
                     SettlementNumber = customerEntry.Settlement.Number,
                     SignHash = customerEntry.SignHash,
-                                        
                 });
             }
 
@@ -94,6 +119,13 @@ namespace Vedy.Infrastructure.Services
                 SignHash = entry.SignHash
 
             });
+        }
+
+        public async Task UpdateEntries(IEnumerable<CustomerEntryModel> entries, long settlementId)
+        {
+            
+            //foreach()
+            //await _customerRepository.UpdateAsync();
         }
 
         public async Task Delete(long id)

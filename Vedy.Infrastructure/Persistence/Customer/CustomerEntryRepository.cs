@@ -22,5 +22,14 @@ namespace Vedy.Infrastructure.Persistence.Users
                 .Include(x => x.Settlement)
                 .ToListAsync();
         }
+
+        public Task<List<CustomerEntry>> GetByDate(DateTimeOffset startDate, DateTimeOffset endDate)
+        {
+            return context.CustomerEntries
+                .Where(x=>x.CreatedDate >= startDate && x.CreatedDate <= endDate)
+                .Include(x => x.Company)
+                .Include(x => x.Settlement)
+                .ToListAsync();
+        }
     }
 }

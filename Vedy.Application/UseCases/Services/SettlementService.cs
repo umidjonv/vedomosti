@@ -99,6 +99,38 @@ namespace Vedy.Infrastructure.Services
             });
         }
 
+
+        public async Task Update(IEnumerable<CustomerEntryModel> entries, long settlementId)
+        {
+            var settlement = await _settlementRepository.GetById(settlementId);
+
+            if (settlement == null)
+            {
+                throw new Exception("Settlement not found");                                
+            }
+
+            var customerEntries = new List<CustomerEntry>();
+
+            foreach (var entryModel in entries)
+            {
+                customerEntries.Add(new CustomerEntry 
+                {
+                    Id = entryModel.Id.Value,
+                    Amount = entryModel.Amount,
+                    CarNumber = entryModel.CarNumber,
+                    CompanyId = entryModel.CompanyId,
+                    CreatedDate = entryModel.CreatedDate,   
+                    FullName = entryModel.FullName, 
+                    SettlementId = settlementId,
+                    SignHash = entryModel.SignHash,
+                });
+
+            }
+
+            settlement.CustomerEntries = customerEntries;
+            await _settlementRepository.UpdateAsync(settlement);
+
+        }
         public async Task Delete(long id)
         {
             await _settlementRepository.DeleteAsync(id);

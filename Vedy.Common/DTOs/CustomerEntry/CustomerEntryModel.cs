@@ -25,9 +25,9 @@ namespace Vedy.Common.DTOs.CustomerEntry
         [DisplayName("Компания")]
         public string? CompanyName { get; set; }
 
-        public long SettlementId { get; set; }
+        public long? SettlementId { get; set; }
         [DisplayName("Ведомость")]
-        public string SettlementNumber { get; set; }
+        public string? SettlementNumber { get; set; }
         public DateTimeOffset SettlementDate { get; set; }
 
     }

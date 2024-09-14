@@ -26,6 +26,12 @@ namespace Vedy.Services
             return result;
         }
 
+        public async Task<bool> Update(List<CustomerEntryModel> entries, long settlementId, CancellationToken cancellationToken)
+        {
+            var result = await _networkClient.PostRequestAsync<bool>($"{AppConsts.API_URL}customerentry/updateEntries", new SetSettlementModel { SettlementId = settlementId, Entries = entries } , cancellationToken);
+            return result;
+        }
+
         public async Task<long> Delete(long id, CancellationToken cancellationToken)
         {
             var result = await _networkClient.GetRequestAsync<long>($"{AppConsts.API_URL}customerentry/delete/{id}", cancellationToken);
@@ -41,6 +47,12 @@ namespace Vedy.Services
         public Task<CustomerEntryModel> GetByName(string name, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<List<CustomerEntryModel>?> GetByDate(DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
+        {
+            var list = await _networkClient.PostRequestAsync<List<CustomerEntryModel>?>($"{AppConsts.API_URL}customerentry/getbydate", new DateRangeModel{ StartDate = startDate, EndDate = endDate }, cancellationToken);
+            return list;
         }
 
         public async Task<List<CustomerEntryModel>?> GetList(CancellationToken cancellationToken)

@@ -28,156 +28,168 @@
         /// </summary>
         private void InitializeComponent()
         {
-            gpSettlements = new GroupBox();
-            btnSave = new Button();
-            label3 = new Label();
+            GpCompanies = new GroupBox();
+            lblSearchCompany = new Label();
+            tbxSearchCompany = new TextBox();
+            btnCreate = new Button();
+            dgvCompanies = new DataGridView();
+            groupBox1 = new GroupBox();
             label2 = new Label();
-            dgvSettlements = new DataGridView();
-            tbxNumber = new TextBox();
-            tbxDate = new TextBox();
-            menuStrip1 = new MenuStrip();
-            menuMain = new ToolStripMenuItem();
-            menuSettlement = new ToolStripMenuItem();
-            gpSettlements.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvSettlements).BeginInit();
-            menuStrip1.SuspendLayout();
+            tbxSearchSettlement = new TextBox();
+            btnDownload = new Button();
+            dgvSettlement = new DataGridView();
+            GpCompanies.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCompanies).BeginInit();
+            groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvSettlement).BeginInit();
             SuspendLayout();
             // 
-            // gpSettlements
+            // GpCompanies
             // 
-            gpSettlements.Controls.Add(btnSave);
-            gpSettlements.Controls.Add(label3);
-            gpSettlements.Controls.Add(label2);
-            gpSettlements.Controls.Add(dgvSettlements);
-            gpSettlements.Controls.Add(tbxNumber);
-            gpSettlements.Controls.Add(tbxDate);
-            gpSettlements.Location = new Point(9, 24);
-            gpSettlements.Margin = new Padding(3, 4, 3, 4);
-            gpSettlements.Name = "gpSettlements";
-            gpSettlements.Padding = new Padding(3, 4, 3, 4);
-            gpSettlements.Size = new Size(861, 548);
-            gpSettlements.TabIndex = 1;
-            gpSettlements.TabStop = false;
-            gpSettlements.Text = "Ведомости";
+            GpCompanies.Controls.Add(lblSearchCompany);
+            GpCompanies.Controls.Add(tbxSearchCompany);
+            GpCompanies.Controls.Add(btnCreate);
+            GpCompanies.Controls.Add(dgvCompanies);
+            GpCompanies.Location = new Point(12, 14);
+            GpCompanies.Margin = new Padding(4, 5, 4, 5);
+            GpCompanies.Name = "GpCompanies";
+            GpCompanies.Padding = new Padding(4, 5, 4, 5);
+            GpCompanies.Size = new Size(496, 701);
+            GpCompanies.TabIndex = 1;
+            GpCompanies.TabStop = false;
+            GpCompanies.Text = "Компании";
             // 
-            // btnSave
+            // lblSearchCompany
             // 
-            btnSave.Location = new Point(156, 139);
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(105, 44);
-            btnSave.TabIndex = 7;
-            btnSave.Text = "Скачать";
-            btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += btnDownload_Click;
+            lblSearchCompany.AutoSize = true;
+            lblSearchCompany.Location = new Point(8, 40);
+            lblSearchCompany.Name = "lblSearchCompany";
+            lblSearchCompany.Size = new Size(70, 25);
+            lblSearchCompany.TabIndex = 9;
+            lblSearchCompany.Text = "Поиск:";
             // 
-            // label3
+            // tbxSearchCompany
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(11, 94);
-            label3.Name = "label3";
-            label3.Size = new Size(60, 20);
-            label3.TabIndex = 6;
-            label3.Text = "Номер:";
+            tbxSearchCompany.Location = new Point(85, 37);
+            tbxSearchCompany.Margin = new Padding(4);
+            tbxSearchCompany.Name = "tbxSearchCompany";
+            tbxSearchCompany.Size = new Size(294, 33);
+            tbxSearchCompany.TabIndex = 8;
+            tbxSearchCompany.KeyPress += tbxSearchCompany_KeyPress;
+            // 
+            // btnCreate
+            // 
+            btnCreate.Location = new Point(387, 37);
+            btnCreate.Margin = new Padding(4);
+            btnCreate.Name = "btnCreate";
+            btnCreate.Size = new Size(100, 33);
+            btnCreate.TabIndex = 7;
+            btnCreate.Text = "Создать";
+            btnCreate.UseVisualStyleBackColor = true;
+            btnCreate.Click += btnCreateSettlement_Click;
+            // 
+            // dgvCompanies
+            // 
+            dgvCompanies.Anchor = AnchorStyles.Top;
+            dgvCompanies.BackgroundColor = Color.White;
+            dgvCompanies.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCompanies.Location = new Point(8, 97);
+            dgvCompanies.Margin = new Padding(4, 5, 4, 5);
+            dgvCompanies.Name = "dgvCompanies";
+            dgvCompanies.Size = new Size(479, 574);
+            dgvCompanies.TabIndex = 3;
+            dgvCompanies.CellClick += dgv_CompanyCellClick;
+            dgvCompanies.CellDoubleClick += dgvCompany_CellDoubleClick;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(tbxSearchSettlement);
+            groupBox1.Controls.Add(btnDownload);
+            groupBox1.Controls.Add(dgvSettlement);
+            groupBox1.Location = new Point(527, 14);
+            groupBox1.Margin = new Padding(4, 5, 4, 5);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Padding = new Padding(4, 5, 4, 5);
+            groupBox1.Size = new Size(524, 701);
+            groupBox1.TabIndex = 10;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Ведомости";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(11, 38);
+            label2.Location = new Point(9, 42);
             label2.Name = "label2";
-            label2.Size = new Size(48, 20);
-            label2.TabIndex = 6;
-            label2.Text = "Дата: ";
+            label2.Size = new Size(70, 25);
+            label2.TabIndex = 9;
+            label2.Text = "Поиск:";
             // 
-            // dgvSettlements
+            // tbxSearchSettlement
             // 
-            dgvSettlements.Anchor = AnchorStyles.Top;
-            dgvSettlements.BackgroundColor = Color.White;
-            dgvSettlements.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSettlements.Location = new Point(278, 23);
-            dgvSettlements.Margin = new Padding(3, 4, 3, 4);
-            dgvSettlements.Name = "dgvSettlements";
-            dgvSettlements.Size = new Size(577, 512);
-            dgvSettlements.TabIndex = 3;
-            dgvSettlements.CellClick += dgv_CellClick;
-            dgvSettlements.CellDoubleClick += dgvSettlements_CellDoubleClick;
+            tbxSearchSettlement.Location = new Point(85, 37);
+            tbxSearchSettlement.Margin = new Padding(4);
+            tbxSearchSettlement.Name = "tbxSearchSettlement";
+            tbxSearchSettlement.Size = new Size(292, 33);
+            tbxSearchSettlement.TabIndex = 8;
             // 
-            // tbxNumber
+            // btnDownload
             // 
-            tbxNumber.BackColor = Color.White;
-            tbxNumber.Location = new Point(72, 94);
-            tbxNumber.Name = "tbxNumber";
-            tbxNumber.ReadOnly = true;
-            tbxNumber.Size = new Size(189, 27);
-            tbxNumber.TabIndex = 5;
+            btnDownload.Location = new Point(385, 37);
+            btnDownload.Margin = new Padding(4);
+            btnDownload.Name = "btnDownload";
+            btnDownload.Size = new Size(131, 33);
+            btnDownload.TabIndex = 7;
+            btnDownload.Text = "Скачать";
+            btnDownload.UseVisualStyleBackColor = true;
             // 
-            // tbxDate
+            // dgvSettlement
             // 
-            tbxDate.BackColor = Color.White;
-            tbxDate.Location = new Point(72, 38);
-            tbxDate.Name = "tbxDate";
-            tbxDate.ReadOnly = true;
-            tbxDate.Size = new Size(189, 27);
-            tbxDate.TabIndex = 5;
-            // 
-            // menuStrip1
-            // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { menuMain });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(873, 24);
-            menuStrip1.TabIndex = 3;
-            menuStrip1.Text = "menuStrip1";
-            // 
-            // menuMain
-            // 
-            menuMain.DropDownItems.AddRange(new ToolStripItem[] { menuSettlement });
-            menuMain.Name = "menuMain";
-            menuMain.Size = new Size(79, 20);
-            menuMain.Text = "Ведомости";
-            // 
-            // menuSettlement
-            // 
-            menuSettlement.Name = "menuSettlement";
-            menuSettlement.Size = new Size(180, 22);
-            menuSettlement.Text = "Новая ведомость";
-            menuSettlement.Click += menuSettlement_Click;
+            dgvSettlement.Anchor = AnchorStyles.Top;
+            dgvSettlement.BackgroundColor = Color.White;
+            dgvSettlement.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSettlement.Location = new Point(12, 97);
+            dgvSettlement.Margin = new Padding(4, 5, 4, 5);
+            dgvSettlement.Name = "dgvSettlement";
+            dgvSettlement.Size = new Size(504, 574);
+            dgvSettlement.TabIndex = 3;
+            dgvSettlement.CellClick += dgvSettlement_CellClick;
             // 
             // Main
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(11F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(873, 572);
-            Controls.Add(gpSettlements);
-            Controls.Add(menuStrip1);
-            Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ClientSize = new Size(1060, 715);
+            Controls.Add(groupBox1);
+            Controls.Add(GpCompanies);
+            Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.FixedSingle;
-            MainMenuStrip = menuStrip1;
-            Margin = new Padding(3, 4, 3, 4);
+            Margin = new Padding(4, 5, 4, 5);
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Main";
             Text = "Главная";
             FormClosed += Main_FormClosed;
             Load += Main_Load;
-            gpSettlements.ResumeLayout(false);
-            gpSettlements.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvSettlements).EndInit();
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
+            GpCompanies.ResumeLayout(false);
+            GpCompanies.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvCompanies).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvSettlement).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-        private GroupBox gpSettlements;
-        private DataGridView dgvSettlements;
-        private MenuStrip menuStrip1;
-        private ToolStripMenuItem menuMain;
-        private ToolStripMenuItem menuSettlement;
-        private Label label3;
+        private GroupBox GpCompanies;
+        private DataGridView dgvCompanies;
+        private Button btnCreate;
+        private Label lblSearchCompany;
+        private TextBox tbxSearchCompany;
+        private GroupBox groupBox1;
         private Label label2;
-        private TextBox tbxNumber;
-        private TextBox tbxDate;
-        private Button btnSave;
+        private TextBox tbxSearchSettlement;
+        private Button btnDownload;
+        private DataGridView dgvSettlement;
     }
 }

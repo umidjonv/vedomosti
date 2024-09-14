@@ -19,7 +19,7 @@ namespace Vedy.Data
         public long? CompanyId { get; set; }
         public virtual Company? Company { get; set; }
 
-        public long SettlementId { get; set; }
-        public virtual Settlement Settlement { get; set; }
+        public long? SettlementId { get; set; }
+        public virtual Settlement? Settlement { get; set; }
     }
 }
