@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Vedy.Common.Enums;
 using Vedy.Forms;
 using Vedy.Services;
+using Vedy.Services.Interfaces;
 
 namespace Vedy
 {
@@ -27,6 +28,7 @@ namespace Vedy
             // Usually you're only interested in exposing the type
             // via its interface:
             builder.RegisterType<NetworkClient>().As<INetworkClient>();
+            builder.RegisterType<ConfigService>().As<IConfigService>();
             builder.RegisterType<UserService>().As<IUserService>();
             builder.RegisterType<CompanyService>().As<ICompanyService>();
             builder.RegisterType<CustomerEntryService>().As<ICustomerEntryService>();

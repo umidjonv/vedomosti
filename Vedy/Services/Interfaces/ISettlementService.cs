@@ -1,7 +1,7 @@
 ﻿using Vedy.Common.DTOs.Settlement;
 using Vedy.Models;
 
-namespace Vedy.Services
+namespace Vedy.Services.Interfaces
 {
     public interface ISettlementService
     {

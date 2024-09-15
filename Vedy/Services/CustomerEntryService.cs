@@ -3,6 +3,7 @@ using Vedy.Common.DTOs.Company;
 using Vedy.Common.DTOs.CustomerEntry;
 using Vedy.Consts;
 using Vedy.Models;
+using Vedy.Services.Interfaces;
 
 namespace Vedy.Services
 {
@@ -20,9 +21,9 @@ namespace Vedy.Services
             var result = await _networkClient.PostRequestAsync<CustomerEntryModel>($"{AppConsts.API_URL}customerentry/add", company, cancellationToken);
             return result;
         }
-        public async Task<bool> Update(CustomerEntryModel company, CancellationToken cancellationToken)
+        public async Task<bool> Update(CustomerEntryModel entry, CancellationToken cancellationToken)
         {
-            var result = await _networkClient.PostRequestAsync<bool>($"{AppConsts.API_URL}customerentry/update", company, cancellationToken);
+            var result = await _networkClient.PostRequestAsync<bool>($"{AppConsts.API_URL}customerentry/update", entry, cancellationToken);
             return result;
         }
 

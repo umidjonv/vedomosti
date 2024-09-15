@@ -9,7 +9,12 @@ namespace Vedy.Data
         public User User { get; set; }
 
         public string Number { get; set; }
-        public DateTimeOffset Date { get; set; }
+
+        [Column(TypeName = "timestamp without time zone")]
+        public DateTime Date { get; set; }
+
+        public long? CompanyId { get; set; }
+        public Company? Company { get; set; }
 
         public virtual List<CustomerEntry> CustomerEntries { get; set; }
     }

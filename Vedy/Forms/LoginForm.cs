@@ -4,7 +4,7 @@ using Vedy.Common.DTOs.Settlement;
 using Vedy.Extensions;
 using Vedy.Forms;
 using Vedy.Libs;
-using Vedy.Services;
+using Vedy.Services.Interfaces;
 namespace Vedy
 {
     public partial class LoginForm : Form

@@ -10,6 +10,6 @@ namespace Vedy.Application.Interfaces
     public interface ICustomerEntryRepository : IRepository<CustomerEntry>
     {
         public Task<List<CustomerEntry>> GetAll();    
-        public Task<List<CustomerEntry>> GetByDate(DateTimeOffset startDate, DateTimeOffset endDate);    
+        public Task<List<CustomerEntry>> GetByDate(DateTime startDate, DateTime endDate);    
     }
 }

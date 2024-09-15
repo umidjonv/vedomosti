@@ -66,6 +66,7 @@
             // 
             tbxPass.Location = new Point(149, 105);
             tbxPass.Name = "tbxPass";
+            tbxPass.PasswordChar = '*';
             tbxPass.Size = new Size(185, 33);
             tbxPass.TabIndex = 1;
             // 
@@ -94,6 +95,7 @@
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "LoginForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Главная";
             ResumeLayout(false);
             PerformLayout();

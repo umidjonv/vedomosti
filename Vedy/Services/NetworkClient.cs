@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Vedy.Common.BaseModels;
+using Vedy.Services.Interfaces;
 
 namespace Vedy.Services
 {
@@ -49,7 +50,7 @@ namespace Vedy.Services
 
                 var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);
 
-                var responseModel = DeserializeResponse<TModel>(responseJson) ?? throw new Exception("esponse body is null");
+                var responseModel = DeserializeResponse<TModel>(responseJson) ?? throw new Exception("Response body is null");
 
                 return responseModel;
             }

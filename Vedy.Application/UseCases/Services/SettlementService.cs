@@ -17,16 +17,18 @@ namespace Vedy.Infrastructure.Services
 
         public async Task<List<SettlementModel>> GetAll()
         {
-            var settlements = await _settlementRepository.GetAllAsync();
+            var settlements = await _settlementRepository.GetAllWithCompany();
             var response = new List<SettlementModel>();
             foreach (var settlement in settlements)
             {
-
+                string? companyName = settlement.Company == null ? null : settlement.Company.CompanyName;
                 response.Add(new  SettlementModel 
                 {
                     Id = settlement.Id,
                     Date = settlement.Date,
                     Number = settlement.Number,
+                    CompanyId = settlement.CompanyId,
+                    CompanyName = companyName
                     
                 });
             }
@@ -34,14 +36,18 @@ namespace Vedy.Infrastructure.Services
             return response;
         }
 
+
         public async Task<SettlementModel> GetById(long id)
         {
             var settlement = await _settlementRepository.GetById(id);
+            string? companyName = settlement.Company == null ? null : settlement.Company.CompanyName;
             var model = new SettlementModel
             {
                 Id = settlement.Id,
                 Date = settlement.Date,
                 Number = settlement.Number,
+                CompanyId = settlement.CompanyId,
+                CompanyName = companyName,
                 CustomerEntries = GetCustomerEntries(settlement.CustomerEntries)
             };
             
@@ -57,6 +63,7 @@ namespace Vedy.Infrastructure.Services
                 list.Add(new CustomerEntryModel
                 {
                     Amount = customerEntry.Amount,
+                    Sum = customerEntry.Sum,
                     CarNumber = customerEntry.CarNumber,
                     CompanyId = customerEntry.CompanyId,
                     CompanyName = customerEntry.Company.CompanyName,
@@ -80,6 +87,7 @@ namespace Vedy.Infrastructure.Services
                 Date = model.Date,
                 Number = model.Number,  
                 UserId = model.UserId,
+                CompanyId = model.CompanyId,
             });
 
             return new SettlementModel
@@ -87,6 +95,8 @@ namespace Vedy.Infrastructure.Services
                 UserId = result.UserId,
                 Date = result.Date,
                 Number = result.Number,
+                CompanyId= result.CompanyId,
+                CompanyName = model.CompanyName,
                 CustomerEntries = new List<CustomerEntryModel>(),
                 Id = result.Id
             };
@@ -117,6 +127,7 @@ namespace Vedy.Infrastructure.Services
                 {
                     Id = entryModel.Id.Value,
                     Amount = entryModel.Amount,
+                    Sum = entryModel.Sum,
                     CarNumber = entryModel.CarNumber,
                     CompanyId = entryModel.CompanyId,
                     CreatedDate = entryModel.CreatedDate,   

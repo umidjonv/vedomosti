@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             gpSettlement = new GroupBox();
+            settlementSum = new TextBox();
+            label4 = new Label();
             settlementAmount = new TextBox();
             label5 = new Label();
             btnClear = new Button();
@@ -54,6 +56,8 @@
             // gpSettlement
             // 
             gpSettlement.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            gpSettlement.Controls.Add(settlementSum);
+            gpSettlement.Controls.Add(label4);
             gpSettlement.Controls.Add(settlementAmount);
             gpSettlement.Controls.Add(label5);
             gpSettlement.Controls.Add(btnClear);
@@ -76,6 +80,25 @@
             gpSettlement.TabStop = false;
             gpSettlement.Text = "Регистрация Авто";
             // 
+            // tbxSum
+            // 
+            settlementSum.Location = new Point(109, 265);
+            settlementSum.Name = "tbxSum";
+            settlementSum.ReadOnly = true;
+            settlementSum.Size = new Size(270, 29);
+            settlementSum.TabIndex = 12;
+            settlementSum.Text = "0";
+            settlementSum.KeyPress += settlementAmount_KeyPress;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(16, 268);
+            label4.Name = "label4";
+            label4.Size = new Size(58, 21);
+            label4.TabIndex = 11;
+            label4.Text = "Сумма";
+            // 
             // settlementAmount
             // 
             settlementAmount.Location = new Point(108, 213);
@@ -95,7 +118,7 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(260, 425);
+            btnClear.Location = new Point(260, 485);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(118, 46);
             btnClear.TabIndex = 10;
@@ -115,7 +138,7 @@
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(7, 248);
+            pictureBox1.Location = new Point(8, 321);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(371, 158);
             pictureBox1.TabIndex = 9;
@@ -181,7 +204,7 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(135, 425);
+            btnSave.Location = new Point(135, 485);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(118, 46);
             btnSave.TabIndex = 0;
@@ -270,5 +293,7 @@
         private Label label5;
         private TextBox settlementAmount;
         private MenuStrip menuStrip1;
+        private TextBox settlementSum;
+        private Label label4;
     }
 }

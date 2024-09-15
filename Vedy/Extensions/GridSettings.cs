@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Reflection;
+using System.Windows.Forms;
 using Vedy.Common.DTOs.Company;
 using Vedy.Common.DTOs.CustomerEntry;
 using Vedy.Common.DTOs.Settlement;
@@ -22,10 +23,17 @@ namespace Vedy.Extensions
                         
                         break;
                     case "dgvSettlements":
+                    case "dgvAllSettlement":
                         dataGridView.Columns[nameof(SettlementModel.UserId)].Visible = false;
+                        dataGridView.Columns[nameof(SettlementModel.Number)].Visible = false;
+                        dataGridView.Columns[nameof(SettlementModel.CompanyId)].Visible = false;
+                        DataGridViewColumn dateColumn = dataGridView.Columns["Date"]; 
+                        dateColumn.DefaultCellStyle.Format = "dd.MM.yyyy";
                         break;
                     case "dgvCompany":
+                    case "dgvCompanies":
                         break;
+
                 }
                 dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dataGridView.EditMode = DataGridViewEditMode.EditProgrammatically;

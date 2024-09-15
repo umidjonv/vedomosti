@@ -2,6 +2,7 @@
 using Vedy.Common.DTOs.Company;
 using Vedy.Consts;
 using Vedy.Models;
+using Vedy.Services.Interfaces;
 
 namespace Vedy.Services
 {

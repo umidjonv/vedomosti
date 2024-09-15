@@ -1,6 +1,6 @@
 ﻿using Vedy.Common.DTOs.User;
 
-namespace Vedy.Services
+namespace Vedy.Services.Interfaces
 {
     public interface IUserService
     {

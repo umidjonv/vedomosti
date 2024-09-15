@@ -2,7 +2,7 @@
 using Vedy.Common.DTOs.CustomerEntry;
 using Vedy.Models;
 
-namespace Vedy.Services
+namespace Vedy.Services.Interfaces
 {
     public interface ICustomerEntryService
     {

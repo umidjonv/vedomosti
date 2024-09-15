@@ -19,8 +19,11 @@ namespace Vedy.Common.DTOs.CustomerEntry
         public string SignHash { get; set; }
         [DisplayName("Куб")]
         public long Amount { get; set; }
+
+        [DisplayName("Сумма")]
+        public long Sum { get; set; }
         [DisplayName("Дата")]
-        public DateTimeOffset CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; }
         public long? CompanyId { get; set; }
         [DisplayName("Компания")]
         public string? CompanyName { get; set; }
@@ -28,7 +31,7 @@ namespace Vedy.Common.DTOs.CustomerEntry
         public long? SettlementId { get; set; }
         [DisplayName("Ведомость")]
         public string? SettlementNumber { get; set; }
-        public DateTimeOffset SettlementDate { get; set; }
+        public DateTime? SettlementDate { get; set; }
 
     }
 }

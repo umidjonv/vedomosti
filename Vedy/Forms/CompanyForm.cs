@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Vedy.Common.DTOs.Company;
 using Vedy.Extensions;
-using Vedy.Services;
+using Vedy.Services.Interfaces;
 using Vedy.ViewModels;
 
 namespace Vedy.Forms

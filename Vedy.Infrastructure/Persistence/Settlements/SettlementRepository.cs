@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Vedy.Application.Interfaces;
 using Vedy.Data;
+using static iText.StyledXmlParser.Jsoup.Select.Evaluator;
 
 namespace Vedy.Infrastructure.Persistence.Settlements
 {
@@ -15,7 +16,14 @@ namespace Vedy.Infrastructure.Persistence.Settlements
             return context.Set<Settlement>()
                 .Include(x => x.CustomerEntries)
                 .ThenInclude(x => x.Company)
-                .FirstOrDefaultAsync(x=>x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public Task<List<Settlement>> GetAllWithCompany()
+        {
+            return context.Set<Settlement>()
+                .Include(x => x.Company)
+                .ToListAsync();
         }
     }
 }

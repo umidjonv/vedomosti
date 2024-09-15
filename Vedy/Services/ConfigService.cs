@@ -1,9 +1,10 @@
 ﻿using Vedy.Common;
 using Vedy.Consts;
+using Vedy.Services.Interfaces;
 
 namespace Vedy.Services
 {
-    public class ConfigService
+    public class ConfigService:IConfigService
     {
         private readonly INetworkClient _networkClient;
 

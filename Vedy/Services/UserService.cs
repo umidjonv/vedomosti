@@ -1,5 +1,6 @@
 ﻿using Vedy.Common.DTOs.User;
 using Vedy.Consts;
+using Vedy.Services.Interfaces;
 
 namespace Vedy.Services
 {

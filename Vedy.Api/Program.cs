@@ -1,10 +1,12 @@
+using Microsoft.Extensions.Configuration;
 using Vedy.Application;
+using Vedy.Common;
 using Vedy.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.Configure<AppConfig>(builder.Configuration.GetSection(nameof(AppConfig)));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

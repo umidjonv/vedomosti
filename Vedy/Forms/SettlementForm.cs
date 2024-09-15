@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using Vedy.Cache;
+using Vedy.Common;
 using Vedy.Common.DTOs.Company;
 using Vedy.Common.DTOs.CustomerEntry;
 using Vedy.Common.DTOs.Settlement;
 using Vedy.Extensions;
 using Vedy.Models;
-using Vedy.Services;
+using Vedy.Services.Interfaces;
 
 namespace Vedy.Forms
 {
@@ -23,6 +24,7 @@ namespace Vedy.Forms
         public SettlementForm(
             ICustomerEntryService customerEntryService,
             ISettlementService settlementService,
+            IConfigService configService,
             CompanyForm companyForm,
             SettlementCreateForm settlementCreateForm
             )
@@ -30,6 +32,7 @@ namespace Vedy.Forms
             InitializeComponent();
             this._customerEntryService = customerEntryService;
             this._settlementService = settlementService;
+            this._configService = configService;
             _companyForm = companyForm;
             this._settlementCreateForm = settlementCreateForm;
             _companyModel = new();
@@ -39,16 +42,18 @@ namespace Vedy.Forms
 
         private readonly ICustomerEntryService _customerEntryService;
         private readonly ISettlementService _settlementService;
+        private readonly IConfigService _configService;
         private readonly CompanyForm _companyForm;
         private readonly SettlementCreateForm _settlementCreateForm;
         private CompanyModel _companyModel;
+        private AppConfig appConfig;
         private CustomerEntryModel _selectedEntry;
         private List<CustomerEntryModel> _customerEntryList = new();
 
         private async Task DgvUpdate()
         {
-            var startDate = settlementDate.Value.ToUniversalTime().Date;
-            var endDate = settlementDate.Value.ToUniversalTime().Date.AddDays(1);
+            var startDate = settlementDate.Value.Date;
+            var endDate = settlementDate.Value.Date.AddDays(1);
 
             CancellationTokenSource tokenSource = new CancellationTokenSource();
             _customerEntryList = await _customerEntryService.GetByDate(
@@ -65,12 +70,17 @@ namespace Vedy.Forms
 
         private void ClearEntry()
         {
-            _selectedEntry = new CustomerEntryModel();
+            settlementCompanyStr.Text = _selectedEntry.CompanyId == null ? string.Empty : _selectedEntry.CompanyName;
 
-            settlementCompanyStr.Text = string.Empty;
+            _selectedEntry = new CustomerEntryModel()
+            {
+                CompanyId = _selectedEntry == null ? null : _selectedEntry.CompanyId,
+            };
+
             settlementFullname.Text = string.Empty;
             settlementCar.Text = string.Empty;
-            settlementAmount.Text = string.Empty;
+            settlementAmount.Text = "0";
+            settlementSum.Text = "0";
 
         }
 
@@ -80,6 +90,7 @@ namespace Vedy.Forms
             settlementFullname.Text = _selectedEntry.FullName;
             settlementCar.Text = _selectedEntry.CarNumber;
             settlementAmount.Text = _selectedEntry.Amount.ToString();
+            settlementSum.Text = (_selectedEntry.Amount * appConfig.Tarif).ToString();
 
         }
 
@@ -95,6 +106,7 @@ namespace Vedy.Forms
                     FullName = settlementFullname.Text,
                     CarNumber = settlementCar.Text,
                     Amount = long.Parse(settlementAmount.Text),
+                    Sum = long.Parse(settlementSum.Text),
                     CompanyId = _selectedEntry.CompanyId.Value,
                     CreatedDate = DateTime.Now.Date,
                     SignHash = string.Empty,
@@ -158,7 +170,7 @@ namespace Vedy.Forms
 
                 if (_selectedEntry == null)
                 {
-                    _selectedEntry = new CustomerEntryModel() { CreatedDate = DateTimeOffset.Now };
+                    _selectedEntry = new CustomerEntryModel() { CreatedDate = DateTime.Now };
                 }
                 _selectedEntry.CompanyId = result.Id;
                 _selectedEntry.CompanyName = result.Name;
@@ -170,6 +182,8 @@ namespace Vedy.Forms
 
         private async void SettlementForm_Shown(object sender, EventArgs e)
         {
+            appConfig = await _configService.GetConfig(TokenExtension.GetToken());
+
             //if (SettlementData.CurrentSettlementId <= 0)
             //{
             //    //if (_settlementCreateForm.ShowDialog() == DialogResult.OK)
@@ -213,6 +227,7 @@ namespace Vedy.Forms
                     btnUpdate_Click(sender, e);
                 }
                 await DgvUpdate();
+                ClearEntry();
             }
         }
 
@@ -222,6 +237,8 @@ namespace Vedy.Forms
             {
                 e.Handled = true;
             }
+
+            settlementSum.Text = $"{long.Parse(settlementAmount.Text) * appConfig.Tarif}";
         }
 
         private async void settlementDate_ValueChanged(object sender, EventArgs e)

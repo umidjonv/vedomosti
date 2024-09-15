@@ -1,7 +1,7 @@
 ﻿using Vedy.Common.DTOs.CustomerEntry;
 using Vedy.Common.DTOs.Settlement;
 using Vedy.Extensions;
-using Vedy.Services;
+using Vedy.Services.Interfaces;
 
 namespace Vedy.Forms
 {
@@ -38,7 +38,9 @@ namespace Vedy.Forms
                 var settlement = await _settlementService.Add(new SettlementModel
                 {
                     Number = $"{Guid.NewGuid()}",
-                    Date = DateTime.Now.ToUniversalTime(),
+                    Date = DateTime.Now,
+                    CompanyId = CompanyId,
+                    UserId = Program.UserId,
                     
                 }, TokenExtension.GetToken());
 
@@ -76,7 +78,7 @@ namespace Vedy.Forms
                 year--;
             }
 
-            DateTime startDate = new DateTime(year, selectedMonth + 1, 1, 0,0,0,DateTimeKind.Utc);
+            DateTime startDate = new DateTime(year, selectedMonth + 1, 1, 0,0,0);
             DateTime endDate = startDate.AddMonths(+1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59);
 
             lblDateRange.Text = $"Период: {startDate.ToShortDateString()} - {endDate.ToShortDateString()}";

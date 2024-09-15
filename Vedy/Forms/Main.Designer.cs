@@ -37,11 +37,11 @@
             label2 = new Label();
             tbxSearchSettlement = new TextBox();
             btnDownload = new Button();
-            dgvSettlement = new DataGridView();
+            dgvAllSettlement = new DataGridView();
             GpCompanies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCompanies).BeginInit();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvSettlement).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAllSettlement).BeginInit();
             SuspendLayout();
             // 
             // GpCompanies
@@ -106,7 +106,7 @@
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(tbxSearchSettlement);
             groupBox1.Controls.Add(btnDownload);
-            groupBox1.Controls.Add(dgvSettlement);
+            groupBox1.Controls.Add(dgvAllSettlement);
             groupBox1.Location = new Point(527, 14);
             groupBox1.Margin = new Padding(4, 5, 4, 5);
             groupBox1.Name = "groupBox1";
@@ -132,6 +132,7 @@
             tbxSearchSettlement.Name = "tbxSearchSettlement";
             tbxSearchSettlement.Size = new Size(292, 33);
             tbxSearchSettlement.TabIndex = 8;
+            tbxSearchSettlement.KeyPress += tbxSearchSettlement_KeyPress;
             // 
             // btnDownload
             // 
@@ -142,18 +143,19 @@
             btnDownload.TabIndex = 7;
             btnDownload.Text = "Скачать";
             btnDownload.UseVisualStyleBackColor = true;
+            btnDownload.Click += btnDownload_Click;
             // 
-            // dgvSettlement
+            // dgvAllSettlement
             // 
-            dgvSettlement.Anchor = AnchorStyles.Top;
-            dgvSettlement.BackgroundColor = Color.White;
-            dgvSettlement.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSettlement.Location = new Point(12, 97);
-            dgvSettlement.Margin = new Padding(4, 5, 4, 5);
-            dgvSettlement.Name = "dgvSettlement";
-            dgvSettlement.Size = new Size(504, 574);
-            dgvSettlement.TabIndex = 3;
-            dgvSettlement.CellClick += dgvSettlement_CellClick;
+            dgvAllSettlement.Anchor = AnchorStyles.Top;
+            dgvAllSettlement.BackgroundColor = Color.White;
+            dgvAllSettlement.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvAllSettlement.Location = new Point(12, 97);
+            dgvAllSettlement.Margin = new Padding(4, 5, 4, 5);
+            dgvAllSettlement.Name = "dgvAllSettlement";
+            dgvAllSettlement.Size = new Size(504, 574);
+            dgvAllSettlement.TabIndex = 3;
+            dgvAllSettlement.CellClick += dgvSettlement_CellClick;
             // 
             // Main
             // 
@@ -176,7 +178,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvCompanies).EndInit();
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvSettlement).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvAllSettlement).EndInit();
             ResumeLayout(false);
         }
 
@@ -190,6 +192,6 @@
         private Label label2;
         private TextBox tbxSearchSettlement;
         private Button btnDownload;
-        private DataGridView dgvSettlement;
+        private DataGridView dgvAllSettlement;
     }
 }
