@@ -1,6 +1,7 @@
 ﻿using Vedy.Common.DTOs.Settlement;
 using Vedy.Consts;
 using Vedy.Models;
+using Vedy.Services.Interfaces;
 
 namespace Vedy.Services
 {

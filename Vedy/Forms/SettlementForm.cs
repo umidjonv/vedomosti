@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
 using Vedy.Cache;
+using Vedy.Common;
 using Vedy.Common.DTOs.Company;
 using Vedy.Common.DTOs.CustomerEntry;
 using Vedy.Common.DTOs.Settlement;
 using Vedy.Extensions;
 using Vedy.Models;
-using Vedy.Services;
+using Vedy.Services.Interfaces;
 
 namespace Vedy.Forms
 {
@@ -23,79 +24,98 @@ namespace Vedy.Forms
         public SettlementForm(
             ICustomerEntryService customerEntryService,
             ISettlementService settlementService,
-            CompanyForm companyForm
+            IConfigService configService,
+            CompanyForm companyForm,
+            SettlementCreateForm settlementCreateForm
             )
         {
             InitializeComponent();
             this._customerEntryService = customerEntryService;
             this._settlementService = settlementService;
+            this._configService = configService;
             _companyForm = companyForm;
+            this._settlementCreateForm = settlementCreateForm;
             _companyModel = new();
+
+
         }
 
         private readonly ICustomerEntryService _customerEntryService;
         private readonly ISettlementService _settlementService;
+        private readonly IConfigService _configService;
         private readonly CompanyForm _companyForm;
+        private readonly SettlementCreateForm _settlementCreateForm;
         private CompanyModel _companyModel;
+        private AppConfig appConfig;
         private CustomerEntryModel _selectedEntry;
         private List<CustomerEntryModel> _customerEntryList = new();
-        private SettlementModel _settlementModel = new();
 
         private async Task DgvUpdate()
         {
+            var startDate = settlementDate.Value.Date;
+            var endDate = settlementDate.Value.Date.AddDays(1);
+
             CancellationTokenSource tokenSource = new CancellationTokenSource();
-            _customerEntryList = await _customerEntryService.GetList(tokenSource.Token);
+            _customerEntryList = await _customerEntryService.GetByDate(
+                startDate, endDate, tokenSource.Token);
             dgvSettlement.DataSource = _customerEntryList;
+
+            if (dgvSettlement.DataSource != null)
+            {
+                dgvSettlement.SetSettings();
+            }
             dgvSettlement.Update();
             dgvSettlement.Refresh();
         }
 
         private void ClearEntry()
         {
-            _selectedEntry = new CustomerEntryModel();
+            settlementCompanyStr.Text = _selectedEntry.CompanyId == null ? string.Empty : _selectedEntry.CompanyName;
 
-            settlementCompanyStr.Text = string.Empty;
+            _selectedEntry = new CustomerEntryModel()
+            {
+                CompanyId = _selectedEntry == null ? null : _selectedEntry.CompanyId,
+            };
+
             settlementFullname.Text = string.Empty;
             settlementCar.Text = string.Empty;
-            settlementAmount.Text = string.Empty;
+            settlementAmount.Text = "0";
+            settlementSum.Text = "0";
 
         }
 
         private void SetEntry()
         {
-            settlementNumber.Text = _settlementModel.Number;
-            settlementDate.Text = _settlementModel.Date.ToString();
             settlementCompanyStr.Text = _selectedEntry.CompanyName;
             settlementFullname.Text = _selectedEntry.FullName;
             settlementCar.Text = _selectedEntry.CarNumber;
             settlementAmount.Text = _selectedEntry.Amount.ToString();
-            
+            settlementSum.Text = (_selectedEntry.Amount * appConfig.Tarif).ToString();
+
         }
 
         private void GetEntry(bool isNew = false)
         {
             if (isNew)
             {
-                _selectedEntry = new CustomerEntryModel() 
+                _selectedEntry = new CustomerEntryModel()
                 {
-                    SettlementNumber = settlementNumber.Text,
+                    Id = _selectedEntry.Id,
                     SettlementDate = DateTime.Parse(settlementDate.Text),
                     CompanyName = settlementCompanyStr.Text,
                     FullName = settlementFullname.Text,
                     CarNumber = settlementCar.Text,
-                    SettlementId = _settlementModel.Id.Value,
                     Amount = long.Parse(settlementAmount.Text),
+                    Sum = long.Parse(settlementSum.Text),
                     CompanyId = _selectedEntry.CompanyId.Value,
                     CreatedDate = DateTime.Now.Date,
                     SignHash = string.Empty,
                 };
             }
 
-            
-            
         }
 
-        private void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
+        private async void dgv_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
             {
@@ -107,7 +127,7 @@ namespace Vedy.Forms
             _selectedEntry = _customerEntryList.FirstOrDefault(x => x.Id != null && x.Id == value);
 
             SetEntry();
-
+            //await DgvUpdate();
         }
 
         private async void btnAdd_Click(object sender, EventArgs e)
@@ -115,7 +135,7 @@ namespace Vedy.Forms
             GetEntry(true);
 
             _selectedEntry = await _customerEntryService.Add(_selectedEntry, TokenExtension.GetToken());
-            _customerEntryList.Add(_selectedEntry);
+            //_customerEntryList.Add(_selectedEntry);
             await DgvUpdate();
         }
 
@@ -141,46 +161,74 @@ namespace Vedy.Forms
             await DgvUpdate();
         }
 
-        private void btnSelect_Click(object sender, EventArgs e)
+        private async void btnSelect_Click(object sender, EventArgs e)
         {
             if (_companyForm.ShowDialog() == DialogResult.OK)
             {
                 var result = _companyForm.GetResult();
+                //_selectedEntry = new CustomerEntryModel();
+
+                if (_selectedEntry == null)
+                {
+                    _selectedEntry = new CustomerEntryModel() { CreatedDate = DateTime.Now };
+                }
                 _selectedEntry.CompanyId = result.Id;
                 _selectedEntry.CompanyName = result.Name;
+
+                await DgvUpdate();
                 SetEntry();
             }
         }
 
         private async void SettlementForm_Shown(object sender, EventArgs e)
         {
-            if (SettlementData.CurrentSettlementId > 0)
-                _settlementModel = await _settlementService.GetById(SettlementData.CurrentSettlementId, TokenExtension.GetToken());
-            if (_settlementModel != null)
-            {
-                _customerEntryList = _settlementModel.CustomerEntries ?? new List<CustomerEntryModel>();
-                await DgvUpdate();
-            }
-            ClearEntry();
-            SetEntry();
+            appConfig = await _configService.GetConfig(TokenExtension.GetToken());
+
+            //if (SettlementData.CurrentSettlementId <= 0)
+            //{
+            //    //if (_settlementCreateForm.ShowDialog() == DialogResult.OK)
+            //    //{
+            //    //    var newSettlement = await _settlementService.Add(new SettlementModel
+            //    //    {
+            //    //        Number = _settlementCreateForm.GetName(),
+            //    //        Date = DateTimeOffset.Now.ToUniversalTime(),
+            //    //    }, TokenExtension.GetToken());
+            //    //    SettlementData.CurrentSettlementId = newSettlement.Id.Value;
+            //    //}
+            //}
+            //_settlementModel = await _settlementService.GetById(SettlementData.CurrentSettlementId, TokenExtension.GetToken());
+
+            //if (_settlementModel != null)
+            //{
+            //    //_customerEntryList = _settlementModel.CustomerEntries ?? new List<CustomerEntryModel>();
+            //    await DgvUpdate();
+            //}
+            //ClearEntry();
+            //SetEntry();
 
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            this.Close();
+            this.Hide();
+            SettlementData.CurrentSettlementId = 0;
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+        private async void btnSave_Click(object sender, EventArgs e)
         {
-            if (_selectedEntry.Id == null)
+            if (MessageBox.Show("Сохранить?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                btnAdd_Click(sender, e);
-            }else 
-            {
-                btnUpdate_Click(sender, e);
+                if (_selectedEntry.Id == null)
+                {
+                    btnAdd_Click(sender, e);
+                }
+                else
+                {
+                    btnUpdate_Click(sender, e);
+                }
+                await DgvUpdate();
+                ClearEntry();
             }
-            ClearEntry();
         }
 
         private void settlementAmount_KeyPress(object sender, KeyPressEventArgs e)
@@ -189,7 +237,13 @@ namespace Vedy.Forms
             {
                 e.Handled = true;
             }
+
+            settlementSum.Text = $"{long.Parse(settlementAmount.Text) * appConfig.Tarif}";
         }
 
+        private async void settlementDate_ValueChanged(object sender, EventArgs e)
+        {
+            await DgvUpdate();
+        }
     }
 }

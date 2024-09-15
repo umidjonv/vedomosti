@@ -21,7 +21,8 @@ namespace Vedy.Infrastructure.Services
             {
                 FullName = user.FullName,
                 Role = user.Role,
-                Password = user.Password//HashingExtension.HashPasword(user.Password)
+                Password = HashingExtension.HashPasword(user.Password),
+                Login = user.Login,
             });
             if (entity == null)
             {
@@ -45,6 +46,26 @@ namespace Vedy.Infrastructure.Services
                 FullName = entity.FullName,
                 Role = entity.Role
             };
+        }
+
+        public async Task<UserResponse?> Login(LoginModel loginModel)
+        { 
+            var user = await _userRepository.GetByUserName(loginModel.UserName);
+
+            var isLogin = HashingExtension.VerifyPassword(loginModel.Password, user.Password);
+
+            if (isLogin)
+            {
+                return new UserResponse
+                {
+                    Id = user.Id,
+                    FullName= user.FullName,
+                    Role = user.Role,
+                    Login = user.Login,
+                };
+            }
+
+            return null;
         }
     }
 }

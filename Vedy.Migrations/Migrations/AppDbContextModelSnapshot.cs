@@ -65,7 +65,7 @@ namespace Vedy.Migrations.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("FullName")
                         .IsRequired()
@@ -74,12 +74,15 @@ namespace Vedy.Migrations.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
-                    b.Property<long>("SettlementId")
+                    b.Property<long?>("SettlementId")
                         .HasColumnType("bigint");
 
                     b.Property<string>("SignHash")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<long>("Sum")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
@@ -98,8 +101,11 @@ namespace Vedy.Migrations.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
+                    b.Property<long?>("CompanyId")
+                        .HasColumnType("bigint");
+
                     b.Property<DateTime>("Date")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -112,6 +118,8 @@ namespace Vedy.Migrations.Migrations
                         .HasColumnType("bigint");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
 
                     b.HasIndex("UserId");
 
@@ -133,6 +141,14 @@ namespace Vedy.Migrations.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("Login")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("Role")
                         .HasColumnType("integer");
 
@@ -149,9 +165,7 @@ namespace Vedy.Migrations.Migrations
 
                     b.HasOne("Vedy.Data.Settlement", "Settlement")
                         .WithMany("CustomerEntries")
-                        .HasForeignKey("SettlementId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SettlementId");
 
                     b.Navigation("Company");
 
@@ -160,11 +174,17 @@ namespace Vedy.Migrations.Migrations
 
             modelBuilder.Entity("Vedy.Data.Settlement", b =>
                 {
+                    b.HasOne("Vedy.Data.Company", "Company")
+                        .WithMany()
+                        .HasForeignKey("CompanyId");
+
                     b.HasOne("Vedy.Data.User", "User")
-                        .WithMany("Statements")
+                        .WithMany("Settlements")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Company");
 
                     b.Navigation("User");
                 });
@@ -181,7 +201,7 @@ namespace Vedy.Migrations.Migrations
 
             modelBuilder.Entity("Vedy.Data.User", b =>
                 {
-                    b.Navigation("Statements");
+                    b.Navigation("Settlements");
                 });
 #pragma warning restore 612, 618
         }

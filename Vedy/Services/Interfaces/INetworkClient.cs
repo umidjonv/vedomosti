@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Vedy.Services
+namespace Vedy.Services.Interfaces
 {
     public interface INetworkClient
     {

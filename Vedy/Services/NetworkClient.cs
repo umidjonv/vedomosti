@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Vedy.Common.BaseModels;
+using Vedy.Services.Interfaces;
 
 namespace Vedy.Services
 {
@@ -49,7 +50,7 @@ namespace Vedy.Services
 
                 var responseJson = await response.Content.ReadAsStringAsync(cancellationToken);
 
-                var responseModel = DeserializeResponse<TModel>(responseJson) ?? throw new Exception("esponse body is null");
+                var responseModel = DeserializeResponse<TModel>(responseJson) ?? throw new Exception("Response body is null");
 
                 return responseModel;
             }
@@ -90,14 +91,23 @@ namespace Vedy.Services
 
         public T DeserializeResponse<T>(string responseString)
         {
-            var responseModel = JsonConvert.DeserializeObject<BaseResponse<T>>(responseString);
-
-            if (responseModel == null || !responseModel.IsSuccess)
+            var response = JsonConvert.DeserializeObject<BaseResponse>(responseString);
+            
+            if (response.IsSuccess)
             {
-                throw new Exception("Cannot parsing returned model");
+                var responseModel = JsonConvert.DeserializeObject<BaseResponse<T>>(responseString);
+
+                if (responseModel == null || !responseModel.IsSuccess)
+                {
+                    throw new Exception("Cannot parsing returned model");
+                }
+
+                return responseModel.Data;
+
             }
 
-            return responseModel.Data;
+            throw new Exception(response.Error.Message);
+
         }
 
     }

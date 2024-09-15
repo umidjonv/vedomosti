@@ -11,15 +11,17 @@ namespace Vedy.Data
         public string SignHash { get; set; }
 
         public long Amount { get; set; }
-        
-        public DateTimeOffset CreatedDate { get; set; }
+        public long Sum { get; set; }
+
+        [Column(TypeName = "timestamp without time zone")]
+        public DateTime CreatedDate { get; set; }
 
 
 
         public long? CompanyId { get; set; }
         public virtual Company? Company { get; set; }
 
-        public long SettlementId { get; set; }
-        public virtual Settlement Settlement { get; set; }
+        public long? SettlementId { get; set; }
+        public virtual Settlement? Settlement { get; set; }
     }
 }
