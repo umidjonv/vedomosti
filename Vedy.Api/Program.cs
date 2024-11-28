@@ -2,6 +2,7 @@ using Microsoft.Extensions.Configuration;
 using Vedy.Application;
 using Vedy.Common;
 using Vedy.Infrastructure;
+using Vedy.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +16,21 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
 
+builder.Services.AddSignalR(x => 
+{
+    
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +43,6 @@ var app = builder.Build();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapHub<VedyHub>("/vedy");
 
 app.Run();

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             gpSettlement = new GroupBox();
+            btnSign = new Button();
             settlementSum = new TextBox();
             label4 = new Label();
             settlementAmount = new TextBox();
@@ -56,6 +57,7 @@
             // gpSettlement
             // 
             gpSettlement.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            gpSettlement.Controls.Add(btnSign);
             gpSettlement.Controls.Add(settlementSum);
             gpSettlement.Controls.Add(label4);
             gpSettlement.Controls.Add(settlementAmount);
@@ -80,10 +82,20 @@
             gpSettlement.TabStop = false;
             gpSettlement.Text = "Регистрация Авто";
             // 
-            // tbxSum
+            // btnSign
+            // 
+            btnSign.Location = new Point(6, 485);
+            btnSign.Name = "btnSign";
+            btnSign.Size = new Size(118, 46);
+            btnSign.TabIndex = 13;
+            btnSign.Text = "Подписать";
+            btnSign.UseVisualStyleBackColor = true;
+            btnSign.Click += btnSign_Click;
+            // 
+            // settlementSum
             // 
             settlementSum.Location = new Point(109, 265);
-            settlementSum.Name = "tbxSum";
+            settlementSum.Name = "settlementSum";
             settlementSum.ReadOnly = true;
             settlementSum.Size = new Size(270, 29);
             settlementSum.TabIndex = 12;
@@ -264,6 +276,7 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "SettlementForm";
             Text = "Добавление записи";
+            Load += SettlementForm_Load;
             Shown += SettlementForm_Shown;
             gpSettlement.ResumeLayout(false);
             gpSettlement.PerformLayout();
@@ -295,5 +308,6 @@
         private MenuStrip menuStrip1;
         private TextBox settlementSum;
         private Label label4;
+        private Button btnSign;
     }
 }
