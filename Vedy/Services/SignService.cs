@@ -42,10 +42,10 @@ namespace Vedy.Services
                 MessageBox.Show("CALABUNGA!");
             });
 
-            connection.On<SignModel>("SignStarting", (signModel) =>
-            {
-                MessageBox.Show("CALABUNGA!");
-            });
+            //connection.On<SignModel>("SignStarting", (signModel) =>
+            //{
+            //    MessageBox.Show("CALABUNGA!");
+            //});
 
             try
             {

@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Vedy.SignService.Models
 {
-    public class SignModel
+    public class RemoteModel
+    { 
+    }
+
+    public class SignModel: RemoteModel
     {
     }
 }

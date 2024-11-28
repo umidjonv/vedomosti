@@ -13,9 +13,10 @@ using Vedy.SignService.Models;
 
 namespace Vedy.Services
 {
-    internal class RemoteService :   IRemoteService
+    internal class RemoteService :IRemoteService
     {
-        HubConnection hubConnection;
+        private HubConnection hubConnection;
+        private Action<SignModel> _receiverFunc;
 
         public void Connect(string url)
         {
@@ -29,17 +30,13 @@ namespace Vedy.Services
             };
         }
 
+        
+
         public async Task Initialize()
         {
             hubConnection.On<SignModel>("SignStarting", async message =>
             {
-                // Update UI with the received message (Invoke is required for cross-thread calls)
-                //Invoke(new Action(() =>
-                //{
-                //    // Example: display the message in a ListBox
-
-                //}));
-                MessageBox.Show("Received to sign!");
+                await Receive(message);
 
             });
 
@@ -48,12 +45,22 @@ namespace Vedy.Services
             {
                 // Start the connection
                 await hubConnection.StartAsync();
-                MessageBox.Show("Connected to SignalR Hub!");
+                //MessageBox.Show("Connected to SignalR Hub!");
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Could not connect to SignalR Hub: " + ex.Message);
             }
+        }
+
+        public void SetReceiver(Action<SignModel> receiverFunc)
+        {
+            _receiverFunc = receiverFunc;
+        }
+
+        public async Task Receive(SignModel model)
+        {
+            _receiverFunc(model);
         }
 
         public async Task<bool> Send(string message)
@@ -69,5 +76,6 @@ namespace Vedy.Services
                 return false;
             }
         }
+
     }
 }

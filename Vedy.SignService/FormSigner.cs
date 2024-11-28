@@ -20,6 +20,8 @@ using System.IO;
 using Florentis;
 using Vedy.Services;
 using Vedy.SignService.Consts;
+using Vedy.SignService.Models;
+using System.Threading.Tasks;
 
 namespace Vedy
 {
@@ -32,6 +34,7 @@ namespace Vedy
             InitializeComponent();
 
             _remoteService = new RemoteService();
+            _remoteService.SetReceiver(OpenForSign);
         }
 
         private void btnSign_Click(object sender, EventArgs e)
@@ -76,6 +79,46 @@ namespace Vedy
                 }
             }
         }
+
+        private void OpenForSign(SignModel model)
+        {
+            try
+            {
+
+                // Проверка: нужно ли использовать Invoke
+                if (InvokeRequired)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        TopMost = true;
+                        Show();
+                        this.Visible = true;
+                        if (this.WindowState == FormWindowState.Minimized)
+                        {
+                            this.WindowState = FormWindowState.Normal;
+                        }
+                        ShowInTaskbar = true;
+                        this.BringToFront();// Restore window state
+                        TopMost = false;
+                        
+                    }));
+                }
+                else
+                {
+                    // Логика обновления UI (например, добавление текста в TextBox)
+                    MessageBox.Show("Nothing to do");
+                }
+
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }// Show the form
+
+        }
+
         private void print(string txt)
         {
             txtDisplay.Text += txt + "\r\n";
@@ -87,12 +130,19 @@ namespace Vedy
 		{
             _remoteService.Connect(AppConsts.Url);
             await _remoteService.Initialize();
+            Hide();
+
 		}
 
     private void btnExit_Click(object sender, EventArgs e)
 		{
       Application.Exit();
 		}
-	}
+
+        private void _notifyIcon_Click(object sender, EventArgs e)
+        {
+            contextMenuStrip1.Show();
+        }
+    }
 }
 
