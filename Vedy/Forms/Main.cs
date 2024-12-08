@@ -4,6 +4,7 @@ using Vedy.Common.DTOs.Settlement;
 using Vedy.Extensions;
 using Vedy.Forms;
 using Vedy.Libs;
+using Vedy.Models;
 using Vedy.Services;
 using Vedy.Services.Interfaces;
 namespace Vedy
@@ -143,7 +144,13 @@ namespace Vedy
                 var settlement = await _settlementService.GetById(_settlementModel.Id.Value, TokenExtension.GetToken());
                 if (settlement != null)
                 {
-                    var result = pdfService.CreateFile(settlement, saveFileDialog.FileName);
+                    var totals = new TotalsModel
+                    {
+                        TotalSum = settlement?.CustomerEntries?.Sum(x => x.Sum) ?? 0,
+                        TotalAmount = settlement?.CustomerEntries?.Sum(x => x.Amount) ?? 0
+                    };
+                    
+                    var result = pdfService.CreateFile(settlement, saveFileDialog.FileName, totals);
                     if (result)
                     {
                         MessageBox.Show("Файл сохранен");

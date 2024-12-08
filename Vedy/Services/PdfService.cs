@@ -10,6 +10,8 @@ using Vedy.Common.DTOs.Settlement;
 using iText.Layout.Borders;
 using Vedy.Common;
 using System.Globalization;
+using Vedy.Models;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace Vedy.Services
 {
 
@@ -24,11 +26,13 @@ namespace Vedy.Services
         public static string FONT = @"C:\Windows\fonts\Arial.ttf";
         private readonly AppConfig _config;
 
-        public bool CreateFile(SettlementModel model, string fileName)
+        public bool CreateFile(SettlementModel model, string fileName, TotalsModel totals)
         {
             var writer = new PdfWriter(fileName);
             var pdf = new PdfDocument(writer);
             PdfFont font = PdfFontFactory.CreateFont(FONT, "Cp1251");
+            var cultureInfo = new CultureInfo("ru-RU");
+
             Document document = new Document(pdf, PageSize.A4.Rotate());
             document.SetFont(font);
             try
@@ -65,14 +69,14 @@ namespace Vedy.Services
                 Table centerTable = new Table(2);
                 headerTable.SetWidth(UnitValue.CreatePercentValue(100));
 
-                Cell centerTableCell1 = new Cell();
-                centerTableCell1.Add(new Paragraph($"{model.Date.ToString("d")}"));
-                centerTableCell1.SetTextAlignment(TextAlignment.CENTER);
-                centerTableCell1.SetBorder(Border.NO_BORDER); // Убираем границы, если нужно
-                centerTable.AddCell(centerTableCell1);
+                //Cell centerTableCell1 = new Cell();
+                //centerTableCell1.Add(new Paragraph($"{model.Date.ToString("d")}"));
+                //centerTableCell1.SetTextAlignment(TextAlignment.CENTER);
+                //centerTableCell1.SetBorder(Border.NO_BORDER); // Убираем границы, если нужно
+                //centerTable.AddCell(centerTableCell1);
 
                 Cell centerTableCell2 = new Cell();
-                centerTableCell2.Add(new Paragraph($"1 метркуб : {_config.Tarif}"));
+                centerTableCell2.Add(new Paragraph($"1 метркуб : {_config.Tarif} сум"));
                 centerTableCell2.SetTextAlignment(TextAlignment.CENTER);
                 centerTableCell2.SetBorder(Border.NO_BORDER); // Убираем границы, если нужно
                 centerTable.AddCell(centerTableCell2);
@@ -148,53 +152,75 @@ namespace Vedy.Services
                         .SetTextAlignment(TextAlignment.CENTER)
                         .SetBorderBottom(new SolidBorder(1))
                         .Add(new Paragraph(entry.CarNumber));
-
-                    //if (lastEntry == entry)
-                    //    table.AddFooterCell(car);
-                    //else
                     table.AddCell(car);
 
                     var amount = new Cell(1, 1)
                        .SetTextAlignment(TextAlignment.CENTER)
-                       .Add(new Paragraph($"{entry.Amount}"))
+                       .Add(new Paragraph($"{entry.Amount.ToString("N0", cultureInfo)}"))
                     .SetBorderBottom(new SolidBorder(1));
-                    //if (lastEntry == entry)
-                    //    table.AddFooterCell(amount);
-                    //else
                     table.AddCell(amount);
 
                     var sum = new Cell(1, 1)
                        .SetTextAlignment(TextAlignment.CENTER)
-                       .Add(new Paragraph($"{entry.Sum}"))
+                       .Add(new Paragraph($"{entry.Sum.ToString("N0", cultureInfo)}"))
                     .SetBorderBottom(new SolidBorder(1));
-                    //if (lastEntry == entry)
-                    //    table.AddFooterCell(amount);
-                    //else
                     table.AddCell(sum);
 
                     var sumLetter = new Cell(1, 1)
                        .SetTextAlignment(TextAlignment.CENTER)
                        .Add(new Paragraph($"{entry.Sum.ToWords(culture: new CultureInfo("ru"))}"))
                     .SetBorderBottom(new SolidBorder(1));
-                    //if (lastEntry == entry)
-                    //    table.AddFooterCell(amount);
-                    //else
                     table.AddCell(sumLetter);
-
-                    
 
                     var fio = new Cell(1,1)
                         .SetTextAlignment(TextAlignment.CENTER)
                         .Add(new Paragraph(entry.FullName))
                         .SetBorderBottom(new SolidBorder(1));
-                    //if (lastEntry == entry)
-                    //    table.AddFooterCell(fio);
-                    //else
                         table.AddCell(fio);
 
                 }
 
                 document.Add(table);
+
+                #region Totals
+                string totalAmount = totals.TotalAmount.ToString("N0", cultureInfo);
+                Paragraph footerAmount = new Paragraph($"Общий кубометр: {totalAmount}")
+                   .SetTextAlignment(TextAlignment.LEFT)
+                   .SetFontSize(12)
+                   .SetFont(font);
+                document.Add(footerAmount);
+
+                string totalSum = totals.TotalSum.ToString("N0", cultureInfo);
+                Paragraph footerSum = new Paragraph($"Общая сумма: {totalSum} сум")
+                   .SetTextAlignment(TextAlignment.LEFT)
+                   .SetFontSize(12)
+                   .SetFont(font);
+                document.Add(footerSum);
+                #endregion
+
+                #region Sign
+                Table footerTable = new Table(2);
+                footerTable.SetWidth(UnitValue.CreatePercentValue(100));
+
+                // Добавление текста в левую колонку
+                Cell leftFCell = new Cell();
+                leftFCell.Add(new Paragraph($"Дата: {model.Date.ToString("dd.MM.yyyy")}"));
+                leftFCell.SetTextAlignment(TextAlignment.CENTER);
+
+                leftFCell.SetBorder(Border.NO_BORDER);
+                footerTable.AddCell(leftFCell);
+
+                // Добавление текста в правую колонку
+                Cell rightFCell = new Cell();
+                rightFCell.Add(new Paragraph($"____________"));
+                
+                rightFCell.SetTextAlignment(TextAlignment.CENTER);
+                rightFCell.SetBorder(Border.NO_BORDER);
+                rightFCell.SetFont(font);
+
+                footerTable.AddCell(rightFCell);
+                document.Add(footerTable);
+                #endregion
 
                 document.Add(new Paragraph(""));
                 document.Close();

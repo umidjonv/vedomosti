@@ -1,6 +1,7 @@
 ﻿using Vedy.Cache;
 using Vedy.Common.DTOs.Company;
 using Vedy.Common.DTOs.Settlement;
+using Vedy.Common.DTOs.User;
 using Vedy.Extensions;
 using Vedy.Forms;
 using Vedy.Libs;
@@ -19,11 +20,18 @@ namespace Vedy
 
         private async void btnEnter_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(tbxUserName.Text) || string.IsNullOrEmpty(tbxPass.Text))
+            {
+                MessageBox.Show("Заполните все поля");
+                return;
+            }
+
             var result = await _userService.Login(tbxUserName.Text, tbxPass.Text, TokenExtension.GetToken());
 
-            if (result == null) 
+            if (result == null)
             {
                 MessageBox.Show("Логин или пароль неправильный");
+                return;
             }
 
             Program.UserId = result.Id;
@@ -32,7 +40,15 @@ namespace Vedy
             Program.LoggedIn = true;
             DialogResult = DialogResult.OK;
             this.Close();
-            
+
+        }
+
+        private void tbxPass_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar == (int)Keys.Enter))
+            {
+                btnEnter_Click((object)sender, e);
+            }
         }
     }
 }

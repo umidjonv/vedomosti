@@ -36,7 +36,7 @@
             label5 = new Label();
             btnClear = new Button();
             btnClose = new Button();
-            pictureBox1 = new PictureBox();
+            signImage = new PictureBox();
             settlementCar = new TextBox();
             label3 = new Label();
             settlementFullname = new TextBox();
@@ -50,7 +50,7 @@
             settlementDate = new DateTimePicker();
             menuStrip1 = new MenuStrip();
             gpSettlement.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)signImage).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvSettlement).BeginInit();
             SuspendLayout();
             // 
@@ -64,7 +64,7 @@
             gpSettlement.Controls.Add(label5);
             gpSettlement.Controls.Add(btnClear);
             gpSettlement.Controls.Add(btnClose);
-            gpSettlement.Controls.Add(pictureBox1);
+            gpSettlement.Controls.Add(signImage);
             gpSettlement.Controls.Add(settlementCar);
             gpSettlement.Controls.Add(label3);
             gpSettlement.Controls.Add(settlementFullname);
@@ -148,13 +148,13 @@
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += btnClose_Click;
             // 
-            // pictureBox1
+            // signImage
             // 
-            pictureBox1.Location = new Point(8, 321);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(371, 158);
-            pictureBox1.TabIndex = 9;
-            pictureBox1.TabStop = false;
+            signImage.Location = new Point(8, 321);
+            signImage.Name = "signImage";
+            signImage.Size = new Size(371, 158);
+            signImage.TabIndex = 9;
+            signImage.TabStop = false;
             // 
             // settlementCar
             // 
@@ -276,11 +276,12 @@
             Margin = new Padding(3, 4, 3, 4);
             Name = "SettlementForm";
             Text = "Добавление записи";
+            FormClosing += SettlementForm_FormClosing;
             Load += SettlementForm_Load;
             Shown += SettlementForm_Shown;
             gpSettlement.ResumeLayout(false);
             gpSettlement.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)signImage).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvSettlement).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -297,7 +298,7 @@
         private Label label2;
         private TextBox settlementCar;
         private Label label3;
-        private PictureBox pictureBox1;
+        private PictureBox signImage;
         private Label label6;
         private DataGridView dgvSettlement;
         private Button btnClose;

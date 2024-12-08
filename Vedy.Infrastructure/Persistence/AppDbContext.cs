@@ -74,7 +74,22 @@ namespace Vedy.Infrastructure.Persistence
 
         public async Task SaveChangesAsync()
         {
+            HandleSoftDelete();
+
             await base.SaveChangesAsync();
+        }
+
+        private void HandleSoftDelete()
+        {
+            foreach (var entry in ChangeTracker.Entries().Where(e => e.State == EntityState.Deleted))
+            {
+                if (entry.Entity is BaseEntity entity)
+                {
+                    // Mark the entity as modified and set IsDeleted to true
+                    entry.State = EntityState.Modified;
+                    entity.IsDeleted = true;
+                }
+            }
         }
     }
 }

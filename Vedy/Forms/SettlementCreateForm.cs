@@ -1,4 +1,5 @@
-﻿using Vedy.Common.DTOs.CustomerEntry;
+﻿using Humanizer;
+using Vedy.Common.DTOs.CustomerEntry;
 using Vedy.Common.DTOs.Settlement;
 using Vedy.Extensions;
 using Vedy.Services.Interfaces;
@@ -34,13 +35,15 @@ namespace Vedy.Forms
             if (_customerEntryModels.Count > 0)
             {
                 //var ids = _customerEntryModels.Where(x => x.Id != null).Select(x => x.Id.Value).AsEnumerable();
-                
+                var dates = GetStartAndEndDate();
                 var settlement = await _settlementService.Add(new SettlementModel
                 {
-                    Number = $"{Guid.NewGuid()}",
+                    Number = tbxSettlementNumber.Text.Trim(),
                     Date = DateTime.Now,
                     CompanyId = CompanyId,
                     UserId = Program.UserId,
+                    StartDate = dates.start,
+                    EndDate = dates.end,
                     
                 }, TokenExtension.GetToken());
 
@@ -54,29 +57,46 @@ namespace Vedy.Forms
         private void LoadMonths()
         {
             // Add the months to the dropdown
-            cmbMonth.Items.Add("Январь");
-            cmbMonth.Items.Add("Февраль");
-            cmbMonth.Items.Add("Март");
-            cmbMonth.Items.Add("Апрель");
-            cmbMonth.Items.Add("Май");
-            cmbMonth.Items.Add("Июнь");
-            cmbMonth.Items.Add("Июль");
-            cmbMonth.Items.Add("Август");
-            cmbMonth.Items.Add("Сентябрь");
-            cmbMonth.Items.Add("Октябрь");
-            cmbMonth.Items.Add("Ноябрь");
-            cmbMonth.Items.Add("Декабрь");
+            cmbMonth.Items.Add($"Январь {GetYear(1)}");
+            cmbMonth.Items.Add($"Февраль {GetYear(2)}");
+            cmbMonth.Items.Add($"Март {GetYear(3)}");
+            cmbMonth.Items.Add($"Апрель {GetYear(4)}");
+            cmbMonth.Items.Add($"Май {GetYear(5)}");
+            cmbMonth.Items.Add($"Июнь {GetYear(6)}");
+            cmbMonth.Items.Add($"Июль {GetYear(7)}");
+            cmbMonth.Items.Add($"Август {GetYear(8)}");
+            cmbMonth.Items.Add($"Сентябрь {GetYear(9)}");
+            cmbMonth.Items.Add($"Октябрь {GetYear(10)}");
+            cmbMonth.Items.Add($"Ноябрь {GetYear(11)}");
+            cmbMonth.Items.Add($"Декабрь {GetYear(12)}");
         }
 
-        private async void cmbMonth_SelectedIndexChanged(object sender, EventArgs e)
+        private int GetYear(int selectedMonth)
         {
-            var selectedMonth = cmbMonth.SelectedIndex;
             var year = DateTime.Now.Year;
 
             if (selectedMonth > DateTime.Now.Month)
             {
                 year--;
-            }
+            };
+            return year;
+        }
+
+        private (DateTime start, DateTime end) GetStartAndEndDate()
+        {
+            var selectedMonth = cmbMonth.SelectedIndex;
+            var year = GetYear(selectedMonth);
+
+            DateTime startDate = new DateTime(year, selectedMonth + 1, 1, 0, 0, 0);
+            DateTime endDate = startDate.AddMonths(+1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59);
+
+            return (start:startDate, end:endDate);
+        }
+
+        private async void cmbMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedMonth = cmbMonth.SelectedIndex;
+            var year = GetYear(selectedMonth);
 
             DateTime startDate = new DateTime(year, selectedMonth + 1, 1, 0,0,0);
             DateTime endDate = startDate.AddMonths(+1).AddDays(-1).AddHours(23).AddMinutes(59).AddSeconds(59);

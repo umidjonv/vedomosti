@@ -32,7 +32,7 @@ namespace Vedy.Services
 
         public async Task Connect<T>(T form, Func<SignModelResponse, Task> signedMethod) where T : BaseForm
         {
-            connection.On<SignModelResponse>("CompleteSign", async (signModel) =>
+            connection.On<SignModelResponse>("SignComplete", async (signModel) =>
             {
                 await form.ReceiveMessage<SignModelResponse>(signModel, signedMethod);
             });
@@ -64,6 +64,18 @@ namespace Vedy.Services
                 
 
                 await connection.InvokeAsync("StartSign", model);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        public async Task CloseSign()
+        {
+            try
+            {
+                await connection.InvokeAsync("CloseSignWindow");
             }
             catch (Exception ex)
             {

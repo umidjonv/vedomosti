@@ -28,7 +28,9 @@ namespace Vedy.Infrastructure.Services
                     Date = settlement.Date,
                     Number = settlement.Number,
                     CompanyId = settlement.CompanyId,
-                    CompanyName = companyName
+                    CompanyName = companyName,
+                    StartDate = settlement.StartDate,
+                    EndDate = settlement.EndDate,
                     
                 });
             }
@@ -82,12 +84,19 @@ namespace Vedy.Infrastructure.Services
 
         public async Task<SettlementModel?> Add(SettlementModel model)
         {
+            if (model.CompanyId != null)
+            {
+                await _settlementRepository.DeleteSettlements(model.CompanyId.Value, model.StartDate, model.EndDate);
+            }
+
             var result = await _settlementRepository.AddAsync(new Settlement
             {
                 Date = model.Date,
                 Number = model.Number,  
                 UserId = model.UserId,
                 CompanyId = model.CompanyId,
+                StartDate = model.StartDate,
+                EndDate = model.EndDate,
             });
 
             return new SettlementModel

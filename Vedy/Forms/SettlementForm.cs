@@ -55,6 +55,7 @@ namespace Vedy.Forms
         private AppConfig appConfig;
         private CustomerEntryModel _selectedEntry;
         private List<CustomerEntryModel> _customerEntryList = new();
+        private string _signHash = string.Empty;
 
         private async Task DgvUpdate()
         {
@@ -261,12 +262,18 @@ namespace Vedy.Forms
 
         public async Task SignMethod(SignModelResponse model)
         {
-
+            _selectedEntry.SignHash = model.Image;
+            signImage.Image = Convert.FromBase64String(model.Image).ConvertToImage();
         }
 
         private async void SettlementForm_Load(object sender, EventArgs e)
         {
-            
+
+        }
+
+        private async void SettlementForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            await _signService.CloseSign();
         }
     }
 }

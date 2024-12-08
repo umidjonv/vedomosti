@@ -13,9 +13,10 @@ namespace Vedy.Services
 
         void Connect(string url);
 
-        Task<bool> Send(string message);
+        Task<bool> Send(SignModelResponse message);
 
         void SetReceiver(Action<SignModel> recieverFunc);
+        void SetCloser(Action closerFunc);
 
         Task Receive(SignModel model);
     }

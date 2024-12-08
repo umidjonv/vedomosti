@@ -17,6 +17,7 @@ namespace Vedy.Services
     {
         private HubConnection hubConnection;
         private Action<SignModel> _receiverFunc;
+        private Action _closeFunc;
 
         public void Connect(string url)
         {
@@ -40,7 +41,13 @@ namespace Vedy.Services
 
             });
 
-            
+            hubConnection.On("CloseWindow", async () =>
+            {
+                _closeFunc();
+
+            });
+
+
             try
             {
                 // Start the connection
@@ -58,12 +65,17 @@ namespace Vedy.Services
             _receiverFunc = receiverFunc;
         }
 
+        public void SetCloser(Action closeFunc)
+        {
+            _closeFunc = closeFunc;
+        }
+
         public async Task Receive(SignModel model)
         {
             _receiverFunc(model);
         }
 
-        public async Task<bool> Send(string message)
+        public async Task<bool> Send(SignModelResponse message)
         {
             try
             {

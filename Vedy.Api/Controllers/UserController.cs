@@ -56,6 +56,7 @@ namespace Vedy.Api.Controllers
                 {
                     throw new ArgumentException();
                 }
+
                 var result = await _userService.Login(loginModel);
 
                 return Success(result);

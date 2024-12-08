@@ -34,12 +34,14 @@
             btnSelect = new Button();
             cmbMonth = new ComboBox();
             label1 = new Label();
+            tbxSettlementNumber = new TextBox();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvCustomerEntries).BeginInit();
             SuspendLayout();
             // 
             // btnCreate
             // 
-            btnCreate.Location = new Point(317, 511);
+            btnCreate.Location = new Point(742, 7);
             btnCreate.Margin = new Padding(4);
             btnCreate.Name = "btnCreate";
             btnCreate.Size = new Size(195, 32);
@@ -62,15 +64,15 @@
             dgvCustomerEntries.Anchor = AnchorStyles.Top;
             dgvCustomerEntries.BackgroundColor = Color.White;
             dgvCustomerEntries.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCustomerEntries.Location = new Point(4, 84);
+            dgvCustomerEntries.Location = new Point(4, 80);
             dgvCustomerEntries.Margin = new Padding(4, 5, 4, 5);
             dgvCustomerEntries.Name = "dgvCustomerEntries";
-            dgvCustomerEntries.Size = new Size(508, 418);
+            dgvCustomerEntries.Size = new Size(1161, 418);
             dgvCustomerEntries.TabIndex = 6;
             // 
             // btnSelect
             // 
-            btnSelect.Location = new Point(262, 13);
+            btnSelect.Location = new Point(254, 9);
             btnSelect.Margin = new Padding(4);
             btnSelect.Name = "btnSelect";
             btnSelect.Size = new Size(106, 29);
@@ -82,7 +84,7 @@
             // cmbMonth
             // 
             cmbMonth.FormattingEnabled = true;
-            cmbMonth.Location = new Point(79, 13);
+            cmbMonth.Location = new Point(71, 9);
             cmbMonth.Name = "cmbMonth";
             cmbMonth.Size = new Size(176, 29);
             cmbMonth.TabIndex = 8;
@@ -96,11 +98,29 @@
             label1.TabIndex = 9;
             label1.Text = "Месяц:";
             // 
+            // tbxSettlementNumber
+            // 
+            tbxSettlementNumber.Location = new Point(549, 9);
+            tbxSettlementNumber.Name = "tbxSettlementNumber";
+            tbxSettlementNumber.Size = new Size(186, 29);
+            tbxSettlementNumber.TabIndex = 10;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(401, 13);
+            label2.Name = "label2";
+            label2.Size = new Size(142, 21);
+            label2.TabIndex = 9;
+            label2.Text = "Номер ведомости:";
+            // 
             // SettlementCreateForm
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(516, 551);
+            ClientSize = new Size(1166, 551);
+            Controls.Add(tbxSettlementNumber);
+            Controls.Add(label2);
             Controls.Add(label1);
             Controls.Add(cmbMonth);
             Controls.Add(btnSelect);
@@ -114,7 +134,7 @@
             MinimizeBox = false;
             Name = "SettlementCreateForm";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "CustomerForm";
+            Text = "Создание ведомости";
             ((System.ComponentModel.ISupportInitialize)dgvCustomerEntries).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -130,5 +150,6 @@
         private Button btnSelect;
         private ComboBox cmbMonth;
         private Label label1;
+        private TextBox tbxSettlementNumber;
     }
 }
