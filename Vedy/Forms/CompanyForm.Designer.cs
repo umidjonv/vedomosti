@@ -87,7 +87,7 @@
             // 
             // btnSelect
             // 
-            btnSelect.Location = new Point(324, 30);
+            btnSelect.Location = new Point(324, 33);
             btnSelect.Name = "btnSelect";
             btnSelect.Size = new Size(188, 29);
             btnSelect.TabIndex = 15;
@@ -97,7 +97,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(421, 76);
+            button1.Location = new Point(421, 72);
             button1.Name = "button1";
             button1.Size = new Size(91, 29);
             button1.TabIndex = 14;
@@ -107,7 +107,7 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(518, 26);
+            btnClear.Location = new Point(516, 33);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(91, 29);
             btnClear.TabIndex = 13;
@@ -117,7 +117,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(518, 76);
+            btnDelete.Location = new Point(518, 72);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(91, 29);
             btnDelete.TabIndex = 12;
@@ -127,7 +127,7 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(324, 76);
+            btnAdd.Location = new Point(324, 72);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(91, 29);
             btnAdd.TabIndex = 11;
@@ -137,7 +137,7 @@
             // 
             // tbxTin
             // 
-            tbxTin.Location = new Point(123, 79);
+            tbxTin.Location = new Point(123, 75);
             tbxTin.Name = "tbxTin";
             tbxTin.Size = new Size(182, 23);
             tbxTin.TabIndex = 5;

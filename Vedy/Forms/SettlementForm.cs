@@ -225,8 +225,18 @@ namespace Vedy.Forms
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
+            if (_selectedEntry == null) return;
+
+            if (string.IsNullOrEmpty(_selectedEntry.SignHash))
+            {
+                MessageBox.Show("Документ нужно подписать!");
+                return;
+            }
+
             if (MessageBox.Show("Сохранить?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                
+
                 if (_selectedEntry.Id == null)
                 {
                     btnAdd_Click(sender, e);
@@ -257,11 +267,15 @@ namespace Vedy.Forms
 
         private async void btnSign_Click(object sender, EventArgs e)
         {
+            if (_selectedEntry == null)
+                return;
             await _signService.StartSign(new SignModel());
         }
 
         public async Task SignMethod(SignModelResponse model)
         {
+            
+
             _selectedEntry.SignHash = model.Image;
             signImage.Image = Convert.FromBase64String(model.Image).ConvertToImage();
         }
