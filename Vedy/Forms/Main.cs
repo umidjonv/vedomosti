@@ -1,4 +1,5 @@
-﻿using Vedy.Cache;
+﻿using Vedy.Abstractions;
+using Vedy.Cache;
 using Vedy.Common.DTOs.Company;
 using Vedy.Common.DTOs.Settlement;
 using Vedy.Extensions;
@@ -9,12 +10,13 @@ using Vedy.Services;
 using Vedy.Services.Interfaces;
 namespace Vedy
 {
-    public partial class Main : Form
+    public partial class Main : BaseForm
     {
-        public Main(ICompanyService companyService, 
+        public Main(ICompanyService companyService,
             ICustomerEntryService customerEntryService,
             IConfigService configService,
-            ISettlementService settlementService, 
+            ISettlementService settlementService,
+            SignService signService,
             SettlementCreateForm settlementCreateForm)
         {
             InitializeComponent();
@@ -22,6 +24,7 @@ namespace Vedy
             this._customerEntryService = customerEntryService;
             this._configService = configService;
             this._settlementService = settlementService;
+            this._signService = signService;
             this._settlementCreateForm = settlementCreateForm;
         }
         public STU_Tablet stu_Tablet;
@@ -29,6 +32,7 @@ namespace Vedy
         private readonly ICustomerEntryService _customerEntryService;
         private readonly IConfigService _configService;
         private readonly ISettlementService _settlementService;
+        private readonly SignService _signService;
         private SettlementCreateForm _settlementCreateForm;
         private List<CompanyModel> _companyList;
         private CompanyModel _selectedCompany = new CompanyModel();
@@ -149,7 +153,7 @@ namespace Vedy
                         TotalSum = settlement?.CustomerEntries?.Sum(x => x.Sum) ?? 0,
                         TotalAmount = settlement?.CustomerEntries?.Sum(x => x.Amount) ?? 0
                     };
-                    
+
                     var result = pdfService.CreateFile(settlement, saveFileDialog.FileName, totals);
                     if (result)
                     {
@@ -165,9 +169,9 @@ namespace Vedy
         {
             if (e.RowIndex < 0)
                 return;
-             
+
             var id = (long)dgvAllSettlement.Rows[e.RowIndex].Cells["Id"].Value;
-            _settlementModel = _settlementList.Where(x=>x.Id != null).FirstOrDefault(x => x.Id == id);
+            _settlementModel = _settlementList.Where(x => x.Id != null).FirstOrDefault(x => x.Id == id);
         }
 
         private async void tbxSearchCompany_KeyPress(object sender, KeyPressEventArgs e)
@@ -178,6 +182,16 @@ namespace Vedy
         private async void tbxSearchSettlement_KeyPress(object sender, KeyPressEventArgs e)
         {
             await DgvUpdateSettlements();
+        }
+
+        private async void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            await _signService.CloseSign();
+        }
+
+        private async void Main_Shown(object sender, EventArgs e)
+        {
+            await _signService.Connect<Main>(this);
         }
     }
 }

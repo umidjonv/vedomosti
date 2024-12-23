@@ -55,16 +55,17 @@
             dgvCompany.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvCompany.BackgroundColor = Color.White;
             dgvCompany.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCompany.Location = new Point(5, 115);
+            dgvCompany.Location = new Point(8, 214);
+            dgvCompany.Margin = new Padding(4, 6, 4, 6);
             dgvCompany.Name = "dgvCompany";
-            dgvCompany.Size = new Size(617, 333);
+            dgvCompany.RowHeadersWidth = 51;
+            dgvCompany.Size = new Size(969, 622);
             dgvCompany.TabIndex = 12;
             dgvCompany.CellClick += dgvCompany_CellClick;
             dgvCompany.CellDoubleClick += dgvCompany_CellDoubleClick;
             // 
             // gpSettlement
             // 
-            gpSettlement.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             gpSettlement.Controls.Add(btnSelect);
             gpSettlement.Controls.Add(button1);
             gpSettlement.Controls.Add(btnClear);
@@ -76,20 +77,21 @@
             gpSettlement.Controls.Add(tbxName);
             gpSettlement.Controls.Add(label1);
             gpSettlement.Controls.Add(btnSave);
-            gpSettlement.Location = new Point(5, 3);
-            gpSettlement.Margin = new Padding(3, 4, 3, 4);
+            gpSettlement.Location = new Point(8, 6);
+            gpSettlement.Margin = new Padding(4, 7, 4, 7);
             gpSettlement.Name = "gpSettlement";
-            gpSettlement.Padding = new Padding(3, 4, 3, 4);
-            gpSettlement.Size = new Size(617, 105);
+            gpSettlement.Padding = new Padding(4, 7, 4, 7);
+            gpSettlement.Size = new Size(969, 196);
             gpSettlement.TabIndex = 13;
             gpSettlement.TabStop = false;
             gpSettlement.Text = "Компания ";
             // 
             // btnSelect
             // 
-            btnSelect.Location = new Point(324, 33);
+            btnSelect.Location = new Point(509, 62);
+            btnSelect.Margin = new Padding(4, 6, 4, 6);
             btnSelect.Name = "btnSelect";
-            btnSelect.Size = new Size(188, 29);
+            btnSelect.Size = new Size(296, 55);
             btnSelect.TabIndex = 15;
             btnSelect.Text = "Выбрать";
             btnSelect.UseVisualStyleBackColor = true;
@@ -97,9 +99,10 @@
             // 
             // button1
             // 
-            button1.Location = new Point(421, 72);
+            button1.Location = new Point(661, 134);
+            button1.Margin = new Padding(4, 6, 4, 6);
             button1.Name = "button1";
-            button1.Size = new Size(91, 29);
+            button1.Size = new Size(143, 55);
             button1.TabIndex = 14;
             button1.Text = "Обновить";
             button1.UseVisualStyleBackColor = true;
@@ -107,9 +110,10 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(516, 33);
+            btnClear.Location = new Point(811, 62);
+            btnClear.Margin = new Padding(4, 6, 4, 6);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(91, 29);
+            btnClear.Size = new Size(143, 55);
             btnClear.TabIndex = 13;
             btnClear.Text = "Очистить";
             btnClear.UseVisualStyleBackColor = true;
@@ -117,9 +121,10 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(518, 72);
+            btnDelete.Location = new Point(814, 134);
+            btnDelete.Margin = new Padding(4, 6, 4, 6);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(91, 29);
+            btnDelete.Size = new Size(143, 55);
             btnDelete.TabIndex = 12;
             btnDelete.Text = "Удалить";
             btnDelete.UseVisualStyleBackColor = true;
@@ -127,9 +132,10 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(324, 72);
+            btnAdd.Location = new Point(509, 134);
+            btnAdd.Margin = new Padding(4, 6, 4, 6);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(91, 29);
+            btnAdd.Size = new Size(143, 55);
             btnAdd.TabIndex = 11;
             btnAdd.Text = "Добавить";
             btnAdd.UseVisualStyleBackColor = true;
@@ -137,61 +143,74 @@
             // 
             // tbxTin
             // 
-            tbxTin.Location = new Point(123, 75);
+            tbxTin.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbxTin.Location = new Point(194, 140);
+            tbxTin.Margin = new Padding(4, 6, 4, 6);
             tbxTin.Name = "tbxTin";
-            tbxTin.Size = new Size(182, 23);
+            tbxTin.Size = new Size(283, 38);
             tbxTin.TabIndex = 5;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(16, 79);
+            label2.Location = new Point(25, 147);
+            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(30, 15);
+            label2.Size = new Size(51, 28);
             label2.TabIndex = 4;
             label2.Text = "Инн";
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(231, 558);
+            btnClose.Location = new Point(363, 1042);
+            btnClose.Margin = new Padding(4, 6, 4, 6);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(105, 44);
+            btnClose.Size = new Size(165, 83);
             btnClose.TabIndex = 10;
             btnClose.Text = "Закрыть";
             btnClose.UseVisualStyleBackColor = true;
             // 
             // tbxName
             // 
-            tbxName.Location = new Point(123, 36);
+            tbxName.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            tbxName.Location = new Point(194, 67);
+            tbxName.Margin = new Padding(4, 6, 4, 6);
             tbxName.Name = "tbxName";
-            tbxName.Size = new Size(182, 23);
+            tbxName.Size = new Size(283, 38);
             tbxName.TabIndex = 2;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(16, 40);
+            label1.Location = new Point(25, 74);
+            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(90, 15);
+            label1.Size = new Size(150, 28);
             label1.TabIndex = 1;
             label1.Text = "Имя компании";
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(101, 558);
+            btnSave.Location = new Point(158, 1042);
+            btnSave.Margin = new Padding(4, 6, 4, 6);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(105, 44);
+            btnSave.Size = new Size(165, 83);
             btnSave.TabIndex = 0;
             btnSave.Text = "Сохранить";
             btnSave.UseVisualStyleBackColor = true;
             // 
             // CompanyForm
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(624, 460);
+            ClientSize = new Size(980, 858);
             Controls.Add(gpSettlement);
             Controls.Add(dgvCompany);
+            Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(4, 6, 4, 6);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "CompanyForm";
             Text = "CompanyForm";
             Load += CompanyForm_Load;

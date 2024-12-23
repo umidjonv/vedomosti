@@ -37,16 +37,18 @@ namespace Vedy.Services
                 await form.ReceiveMessage<SignModelResponse>(signModel, signedMethod);
             });
 
-            connection.On<SignModel>("StartSign", (signModel) =>
+            try
             {
-                MessageBox.Show("CALABUNGA!");
-            });
+                await connection.StartAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
-            //connection.On<SignModel>("SignStarting", (signModel) =>
-            //{
-            //    MessageBox.Show("CALABUNGA!");
-            //});
-
+        public async Task Connect<T>(T form) where T : BaseForm
+        {
             try
             {
                 await connection.StartAsync();

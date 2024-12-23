@@ -56,7 +56,6 @@
             // 
             // gpSettlement
             // 
-            gpSettlement.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             gpSettlement.Controls.Add(btnSign);
             gpSettlement.Controls.Add(settlementSum);
             gpSettlement.Controls.Add(label4);
@@ -97,7 +96,7 @@
             settlementSum.Location = new Point(109, 265);
             settlementSum.Name = "settlementSum";
             settlementSum.ReadOnly = true;
-            settlementSum.Size = new Size(270, 29);
+            settlementSum.Size = new Size(270, 34);
             settlementSum.TabIndex = 12;
             settlementSum.Text = "0";
             settlementSum.KeyPress += settlementAmount_KeyPress;
@@ -107,7 +106,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(16, 268);
             label4.Name = "label4";
-            label4.Size = new Size(58, 21);
+            label4.Size = new Size(72, 28);
             label4.TabIndex = 11;
             label4.Text = "Сумма";
             // 
@@ -115,7 +114,7 @@
             // 
             settlementAmount.Location = new Point(108, 213);
             settlementAmount.Name = "settlementAmount";
-            settlementAmount.Size = new Size(270, 29);
+            settlementAmount.Size = new Size(270, 34);
             settlementAmount.TabIndex = 12;
             settlementAmount.KeyPress += settlementAmount_KeyPress;
             // 
@@ -124,7 +123,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(15, 216);
             label5.Name = "label5";
-            label5.Size = new Size(80, 21);
+            label5.Size = new Size(102, 28);
             label5.TabIndex = 11;
             label5.Text = "Кубометр";
             // 
@@ -160,7 +159,7 @@
             // 
             settlementCar.Location = new Point(108, 163);
             settlementCar.Name = "settlementCar";
-            settlementCar.Size = new Size(270, 29);
+            settlementCar.Size = new Size(270, 34);
             settlementCar.TabIndex = 7;
             // 
             // label3
@@ -168,7 +167,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(30, 166);
             label3.Name = "label3";
-            label3.Size = new Size(66, 21);
+            label3.Size = new Size(83, 28);
             label3.TabIndex = 6;
             label3.Text = "№ Авто";
             // 
@@ -176,7 +175,7 @@
             // 
             settlementFullname.Location = new Point(108, 109);
             settlementFullname.Name = "settlementFullname";
-            settlementFullname.Size = new Size(270, 29);
+            settlementFullname.Size = new Size(270, 34);
             settlementFullname.TabIndex = 5;
             // 
             // label2
@@ -184,7 +183,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(36, 112);
             label2.Name = "label2";
-            label2.Size = new Size(60, 21);
+            label2.Size = new Size(77, 28);
             label2.TabIndex = 4;
             label2.Text = "Клиент";
             // 
@@ -192,7 +191,7 @@
             // 
             btnSelectCompany.Location = new Point(285, 56);
             btnSelectCompany.Name = "btnSelectCompany";
-            btnSelectCompany.Size = new Size(100, 30);
+            btnSelectCompany.Size = new Size(100, 35);
             btnSelectCompany.TabIndex = 3;
             btnSelectCompany.Text = "Выбрать";
             btnSelectCompany.UseVisualStyleBackColor = true;
@@ -202,7 +201,7 @@
             // 
             settlementCompanyStr.Location = new Point(108, 57);
             settlementCompanyStr.Name = "settlementCompanyStr";
-            settlementCompanyStr.Size = new Size(169, 29);
+            settlementCompanyStr.Size = new Size(169, 34);
             settlementCompanyStr.TabIndex = 2;
             // 
             // label1
@@ -210,7 +209,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(8, 60);
             label1.Name = "label1";
-            label1.Size = new Size(82, 21);
+            label1.Size = new Size(106, 28);
             label1.TabIndex = 1;
             label1.Text = "Компания";
             // 
@@ -229,16 +228,18 @@
             label6.AutoSize = true;
             label6.Location = new Point(15, 25);
             label6.Name = "label6";
-            label6.Size = new Size(47, 21);
+            label6.Size = new Size(58, 28);
             label6.TabIndex = 10;
             label6.Text = "Дата:";
             // 
             // dgvSettlement
             // 
+            dgvSettlement.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
             dgvSettlement.BackgroundColor = Color.White;
             dgvSettlement.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSettlement.Location = new Point(391, 3);
             dgvSettlement.Name = "dgvSettlement";
+            dgvSettlement.RowHeadersWidth = 51;
             dgvSettlement.Size = new Size(862, 779);
             dgvSettlement.TabIndex = 11;
             dgvSettlement.CellClick += dgv_CellClick;
@@ -248,12 +249,13 @@
             settlementDate.Format = DateTimePickerFormat.Short;
             settlementDate.Location = new Point(108, 20);
             settlementDate.Name = "settlementDate";
-            settlementDate.Size = new Size(145, 29);
+            settlementDate.Size = new Size(145, 34);
             settlementDate.TabIndex = 12;
             settlementDate.ValueChanged += settlementDate_ValueChanged;
             // 
             // menuStrip1
             // 
+            menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(7, 2, 0, 2);
@@ -263,7 +265,7 @@
             // 
             // SettlementForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 21F);
+            AutoScaleDimensions = new SizeF(11F, 28F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1266, 795);
             Controls.Add(settlementDate);
@@ -272,9 +274,13 @@
             Controls.Add(gpSettlement);
             Controls.Add(menuStrip1);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MainMenuStrip = menuStrip1;
             Margin = new Padding(3, 4, 3, 4);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "SettlementForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Добавление записи";
             FormClosing += SettlementForm_FormClosing;
             Load += SettlementForm_Load;

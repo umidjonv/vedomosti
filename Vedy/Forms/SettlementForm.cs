@@ -274,8 +274,6 @@ namespace Vedy.Forms
 
         public async Task SignMethod(SignModelResponse model)
         {
-            
-
             _selectedEntry.SignHash = model.Image;
             signImage.Image = Convert.FromBase64String(model.Image).ConvertToImage();
         }
