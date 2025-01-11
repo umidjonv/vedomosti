@@ -217,10 +217,10 @@ namespace Vedy.Forms
 
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private async void btnClose_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            SettlementData.CurrentSettlementId = 0;
+            await _signService.CloseSign();
+            Application.Exit();
         }
 
         private async void btnSave_Click(object sender, EventArgs e)

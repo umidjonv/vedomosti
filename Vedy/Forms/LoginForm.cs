@@ -1,21 +1,26 @@
-﻿using Vedy.Cache;
+﻿using Vedy.Abstractions;
+using Vedy.Cache;
 using Vedy.Common.DTOs.Company;
 using Vedy.Common.DTOs.Settlement;
 using Vedy.Common.DTOs.User;
 using Vedy.Extensions;
 using Vedy.Forms;
 using Vedy.Libs;
+using Vedy.Services;
 using Vedy.Services.Interfaces;
 namespace Vedy
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : BaseForm
     {
         private readonly IUserService _userService;
+        private readonly SignService _signService;
 
-        public LoginForm(IUserService userService)
+        public LoginForm(IUserService userService,
+            SignService signService)
         {
             InitializeComponent();
             _userService = userService;
+            _signService = signService;
         }
 
         private async void btnEnter_Click(object sender, EventArgs e)
@@ -49,6 +54,16 @@ namespace Vedy
             {
                 btnEnter_Click((object)sender, e);
             }
+        }
+
+        private async void SettlementForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            await _signService.CloseSign();
+        }
+
+        private async void LoginForm_Shown(object sender, EventArgs e)
+        {
+            await _signService.Connect<LoginForm>(this);
         }
     }
 }

@@ -3,7 +3,7 @@ using Vedy.Application;
 using Vedy.Common;
 using Vedy.Infrastructure;
 using Vedy.Infrastructure.Services;
-
+using Vedy.Api.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -31,8 +31,11 @@ builder.Services.AddSignalR(x =>
 {
     
 });
+
+//builder.AddAutoDbMigrations();
 var app = builder.Build();
 
+app.AddAutoDbMigrations();
 // Configure the HTTP request pipeline.
 //if (app.Environment.IsDevelopment())
 //{

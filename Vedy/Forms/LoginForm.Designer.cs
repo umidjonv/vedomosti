@@ -99,6 +99,8 @@
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Главная";
+            FormClosing += SettlementForm_FormClosing;
+            Shown += LoginForm_Shown;
             ResumeLayout(false);
             PerformLayout();
         }
