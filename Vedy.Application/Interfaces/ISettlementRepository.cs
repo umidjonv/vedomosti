@@ -7,6 +7,7 @@ namespace Vedy.Application.Interfaces
         Task<Settlement?> GetById(long id);
 
         Task<List<Settlement>> GetAllWithCompany();
-        
+
+        Task DeleteSettlements(long companyId, DateTime startDate, DateTime endDate);
     }
 }

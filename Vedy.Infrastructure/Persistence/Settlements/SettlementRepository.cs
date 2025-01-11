@@ -25,5 +25,19 @@ namespace Vedy.Infrastructure.Persistence.Settlements
                 .Include(x => x.Company)
                 .ToListAsync();
         }
+
+        public async Task DeleteSettlements(long companyId, DateTime startDate, DateTime endDate)
+        {
+            var settlements = context.Set<Settlement>()
+                .Where(x => x.StartDate.Equals(startDate) && x.EndDate.Equals(endDate) && x.CompanyId == companyId)
+                .ToList();
+            foreach (var item in settlements) 
+            {
+                context.Settlements.Remove(item);
+                
+            }
+
+            await context.SaveChangesAsync();
+        }
     }
 }

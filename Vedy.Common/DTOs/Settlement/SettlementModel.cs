@@ -15,6 +15,12 @@ namespace Vedy.Common.DTOs.Settlement
         [DisplayName("Дата")]
         public DateTime Date { get; set; }
 
+        [DisplayName("C")]
+        public DateTime StartDate { get; set; }
+        
+        [DisplayName("По")]
+        public DateTime EndDate { get; set; }
+
         public List<CustomerEntryModel>? CustomerEntries { get; set; }
 
         public long UserId { get; set; } = 1;

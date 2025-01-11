@@ -49,7 +49,7 @@ namespace Vedy.Infrastructure.Services
         }
 
         public async Task<UserResponse?> Login(LoginModel loginModel)
-        { 
+        {
             var user = await _userRepository.GetByUserName(loginModel.UserName);
 
             var isLogin = HashingExtension.VerifyPassword(loginModel.Password, user.Password);

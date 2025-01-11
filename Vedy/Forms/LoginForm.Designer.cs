@@ -61,6 +61,7 @@
             tbxUserName.Name = "tbxUserName";
             tbxUserName.Size = new Size(185, 33);
             tbxUserName.TabIndex = 0;
+            tbxUserName.KeyPress += tbxPass_KeyPress;
             // 
             // tbxPass
             // 
@@ -69,6 +70,7 @@
             tbxPass.PasswordChar = '*';
             tbxPass.Size = new Size(185, 33);
             tbxPass.TabIndex = 1;
+            tbxPass.KeyPress += tbxPass_KeyPress;
             // 
             // label2
             // 
@@ -97,6 +99,8 @@
             Name = "LoginForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Главная";
+            FormClosing += SettlementForm_FormClosing;
+            Shown += LoginForm_Shown;
             ResumeLayout(false);
             PerformLayout();
         }

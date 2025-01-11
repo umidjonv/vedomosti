@@ -25,8 +25,10 @@ namespace Vedy.Infrastructure
             services.AddTransient<ICompanyRepository, CompanyRepository>();
             services.AddTransient<ICustomerEntryRepository, CustomerEntryRepository>();
             services.AddTransient<ISettlementRepository, SettlementRepository>();
+
             return services;
         }
 
+        
     }
 }

@@ -107,12 +107,18 @@ namespace Vedy.Migrations.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Number")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -155,6 +161,26 @@ namespace Vedy.Migrations.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            FullName = "Administrator",
+                            IsDeleted = false,
+                            Login = "admin",
+                            Password = "4DA881DECEE92CA3B577F188EAAF92265A5550AF85F391CEB1FBE26A1C72F3E29AF139B1F941CDE4AA64C70CE01BACC3DE4F6F6657BF33CFCAA91EB27CB03EC4",
+                            Role = 1
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            FullName = "Operator",
+                            IsDeleted = false,
+                            Login = "operator",
+                            Password = "990B065EF6ECA1303AF386821A61AB374CC412D7C482967086505ACA1295FBF8641DE8F3F0B020E4760A65F55AD7C898351626CDEDF5DAF5683D334B0DC68E2F",
+                            Role = 0
+                        });
                 });
 
             modelBuilder.Entity("Vedy.Data.CustomerEntry", b =>

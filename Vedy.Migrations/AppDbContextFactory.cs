@@ -10,13 +10,22 @@ namespace Vedy.Migrations
     {
         private readonly string _connectionString;
         private const string NamespaceName = "Vedy.Migrations";
-
+        private const string Production = "Production";
         public AppDbContextFactory()
         {
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json", false, true)
-                .AddEnvironmentVariables();
+            var builder = new ConfigurationBuilder();
+
+            builder.AddEnvironmentVariables();
             var configuration = builder.Build();
+
+            var environment = configuration["DOTNET_ENVIRONMENT"] ?? Production;
+            
+            if (environment != Production)
+            {
+                builder.AddJsonFile("appsettings.json", false, true);
+                builder.AddEnvironmentVariables();
+            }
+
 
             _connectionString = configuration["ConnectionStrings:DefaultConnection"];
         }

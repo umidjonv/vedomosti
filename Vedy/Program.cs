@@ -1,6 +1,7 @@
 using Autofac;
 using System.Windows.Forms;
 using Vedy.Common.Enums;
+using Vedy.Consts;
 using Vedy.Forms;
 using Vedy.Services;
 using Vedy.Services.Interfaces;
@@ -33,6 +34,7 @@ namespace Vedy
             builder.RegisterType<CompanyService>().As<ICompanyService>();
             builder.RegisterType<CustomerEntryService>().As<ICustomerEntryService>();
             builder.RegisterType<SettlementService>().As<ISettlementService>();
+            builder.RegisterType<SignService>();
 
             builder.RegisterType<LoginForm>();
             builder.RegisterType<Main>();

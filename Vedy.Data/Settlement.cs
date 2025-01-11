@@ -13,6 +13,13 @@ namespace Vedy.Data
         [Column(TypeName = "timestamp without time zone")]
         public DateTime Date { get; set; }
 
+        [Column(TypeName = "timestamp without time zone")]
+        public DateTime StartDate { get; set; }
+        
+        [Column(TypeName = "timestamp without time zone")]
+        public DateTime EndDate { get; set; }
+
+
         public long? CompanyId { get; set; }
         public Company? Company { get; set; }
 

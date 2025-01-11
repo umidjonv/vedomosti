@@ -8,25 +8,29 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
+using Vedy.Abstractions;
 using Vedy.Cache;
 using Vedy.Common;
 using Vedy.Common.DTOs.Company;
 using Vedy.Common.DTOs.CustomerEntry;
 using Vedy.Common.DTOs.Settlement;
+using Vedy.Common.DTOs.Sign;
 using Vedy.Extensions;
 using Vedy.Models;
+using Vedy.Services;
 using Vedy.Services.Interfaces;
 
 namespace Vedy.Forms
 {
-    public partial class SettlementForm : Form
+    public partial class SettlementForm : BaseForm
     {
         public SettlementForm(
             ICustomerEntryService customerEntryService,
             ISettlementService settlementService,
             IConfigService configService,
             CompanyForm companyForm,
-            SettlementCreateForm settlementCreateForm
+            SettlementCreateForm settlementCreateForm,
+            SignService signService
             )
         {
             InitializeComponent();
@@ -35,6 +39,7 @@ namespace Vedy.Forms
             this._configService = configService;
             _companyForm = companyForm;
             this._settlementCreateForm = settlementCreateForm;
+            this._signService = signService;
             _companyModel = new();
 
 
@@ -45,10 +50,12 @@ namespace Vedy.Forms
         private readonly IConfigService _configService;
         private readonly CompanyForm _companyForm;
         private readonly SettlementCreateForm _settlementCreateForm;
+        private readonly SignService _signService;
         private CompanyModel _companyModel;
         private AppConfig appConfig;
         private CustomerEntryModel _selectedEntry;
         private List<CustomerEntryModel> _customerEntryList = new();
+        private string _signHash = string.Empty;
 
         private async Task DgvUpdate()
         {
@@ -184,6 +191,8 @@ namespace Vedy.Forms
         {
             appConfig = await _configService.GetConfig(TokenExtension.GetToken());
 
+            await _signService.Connect<SettlementForm>(this, SignMethod);
+
             //if (SettlementData.CurrentSettlementId <= 0)
             //{
             //    //if (_settlementCreateForm.ShowDialog() == DialogResult.OK)
@@ -208,16 +217,26 @@ namespace Vedy.Forms
 
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
+        private async void btnClose_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            SettlementData.CurrentSettlementId = 0;
+            await _signService.CloseSign();
+            Application.Exit();
         }
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
+            if (_selectedEntry == null) return;
+
+            if (string.IsNullOrEmpty(_selectedEntry.SignHash))
+            {
+                MessageBox.Show("Документ нужно подписать!");
+                return;
+            }
+
             if (MessageBox.Show("Сохранить?", "", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                
+
                 if (_selectedEntry.Id == null)
                 {
                     btnAdd_Click(sender, e);
@@ -244,6 +263,29 @@ namespace Vedy.Forms
         private async void settlementDate_ValueChanged(object sender, EventArgs e)
         {
             await DgvUpdate();
+        }
+
+        private async void btnSign_Click(object sender, EventArgs e)
+        {
+            if (_selectedEntry == null)
+                return;
+            await _signService.StartSign(new SignModel());
+        }
+
+        public async Task SignMethod(SignModelResponse model)
+        {
+            _selectedEntry.SignHash = model.Image;
+            signImage.Image = Convert.FromBase64String(model.Image).ConvertToImage();
+        }
+
+        private async void SettlementForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private async void SettlementForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            await _signService.CloseSign();
         }
     }
 }

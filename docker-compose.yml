@@ -1,0 +1,42 @@
+version: "3.7"
+services:
+  vedyapi:
+    container_name: vedy-app
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Database=VedyDb;Username=postgres;Password=cHAbRere4t;
+      - AppConfig__CompanyName=Кармана Алфа Газ Сервис МЧЖ
+      - AppConfig__Tarif=3950
+    image: "vedy-app"
+    ports:
+      - "7510:80"
+    depends_on:
+      - db
+     
+  vedy-migrations:
+    container_name: vedy-migrations
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Database=VedyDb;Username=postgres;Password=cHAbRere4t;
+      - DOTNET_ENVIRONMENT=Production
+      
+    image: "vedy-migrations"
+    ports:
+      - "7512:80"
+    depends_on:
+      - db
+      
+  
+  db:
+    image: postgres:15
+    container_name: db-container
+    ports:
+      - "6432:5432" # Прокидывает порт 5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: cHAbRere4t
+      POSTGRES_DB: VedyDb
+    volumes:
+      - postgres-data:/var/lib/postgresql/data # Сохраняет данные базы на хосте
+
+volumes:
+  postgres-data: 
+
